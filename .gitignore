@@ -1,1 +1,6 @@
+/bin/
 /target/
+/target
+target/
+target/ECPay-1.0.0-jar-with-dependencies.jar
+target/ECPay-1.0.0.jar
