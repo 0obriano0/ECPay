@@ -198,15 +198,16 @@ public class ExampleAllInOne {
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		obj.setMerchantTradeDate(sdFormat.format(date_now));
 		obj.setTotalAmount("50");
-		obj.setTradeDesc("test Description");
-		obj.setItemName("TestItem");
+		obj.setTradeDesc("測試文字");
+		obj.setItemName("物品");
 		obj.setReturnURL("http://" + ECPay.ServerIP + ":80/return.php");
 		obj.setNeedExtraPaidInfo("Y");
 		obj.setStoreExpireDate("1440");
 		obj.setInvoiceMark("N");
 		obj.setPaymentInfoURL("http://" + ECPay.ServerIP + ":80/php_post_test.php");
-		obj.setClientRedirectURL("http://" + ECPay.ServerIP + ":" + ECPay.port + "/ClientRedirectURL");
 		obj.setChooseSubPayment("CVS");
+		obj.setCustomField1("交易文字一");
+		obj.setDesc_1("交易文字二");
 		/*invoice.setRelateNumber("test201217test");
 		invoice.setCustomerID("123456");
 		invoice.setCarruerType("1");
@@ -234,9 +235,9 @@ public class ExampleAllInOne {
 		String createServerOrderUrl = all.getAioCheckOutUrl();
 		//System.out.println("createServerOrderUrl = " + createServerOrderUrl + "\n");
 		//httpPostRunnable h2 = new httpPostRunnable("https://payment-stage.ecpay.com.tw/SP/CreateTrade",httpValue,"UTF-8");
-		httpPostRunnable h2 = new httpPostRunnable(createServerOrderUrl,httpValue,"UTF-8");
+		/*httpPostRunnable h2 = new httpPostRunnable(createServerOrderUrl,httpValue,"UTF-8");
         Thread thr = new Thread(h2);
-        thr.start();
+        thr.start();*/
 		return form;
 	}
 	

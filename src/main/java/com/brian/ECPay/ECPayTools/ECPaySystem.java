@@ -26,9 +26,12 @@ public class ECPaySystem {
 	/**
 	 * createCVSPaymentNO
 	 * 創建一個超商代碼
-	 * @param log4jPropertiesPath
+	 * @param UserName (minecraft username)使用者名稱
+	 * @param TotalAmount 總金額
+	 * @param ItemName 物品名稱
+	 * @param TradeDesc 交易描述
 	 */
-	public static void createCVSPaymentNO(String UserName,String TotalAmount,String ItemName){
+	public static void createCVSPaymentNO(String UserName,String TotalAmount,String ItemName,String TradeDesc){
 		AioCheckOutCVS obj = new AioCheckOutCVS();
 		//InvoiceObj invoice = new InvoiceObj();
 		UUID uid = UUID.randomUUID();
@@ -37,14 +40,13 @@ public class ECPaySystem {
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		obj.setMerchantTradeDate(sdFormat.format(date_now));
 		obj.setTotalAmount(TotalAmount);
-		obj.setTradeDesc("test Description");
+		obj.setTradeDesc(TradeDesc);
 		obj.setItemName(ItemName);
 		obj.setReturnURL("http://" + ECPay.ServerIP + ":80/return.php");
 		obj.setNeedExtraPaidInfo("Y");
 		obj.setStoreExpireDate("1440");
 		obj.setInvoiceMark("N");
 		obj.setPaymentInfoURL("http://" + ECPay.ServerIP + ":80/php_post_test.php");
-		obj.setClientRedirectURL("http://" + ECPay.ServerIP + ":" + ECPay.port + "/ClientRedirectURL");
 		obj.setChooseSubPayment("CVS");
 		
 		//產生一個html 來執行
