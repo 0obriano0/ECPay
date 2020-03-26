@@ -1,8 +1,13 @@
 package example;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.UUID;
+
+import com.brian.ECPay.ECPay;
+import com.brian.ECPay.Runnable.httpPostRunnable;
 
 import ecpay.payment.integration.AllInOne;
 import ecpay.payment.integration.domain.AioCheckOutALL;
@@ -22,10 +27,12 @@ import ecpay.payment.integration.domain.QueryCreditCardPeriodInfoObj;
 import ecpay.payment.integration.domain.QueryTradeInfoObj;
 import ecpay.payment.integration.domain.QueryTradeObj;
 import ecpay.payment.integration.domain.TradeNoAioObj;
+import ecpay.payment.integration.ecpayOperator.EcpayFunction;
+import ecpay.payment.integration.verification.VerifyCreateServerOrder;
 
 public class ExampleAllInOne {
 	public static AllInOne all;
-	public static void main(String[] args) {
+	public static void test() {
 		initial();
 //		System.out.println("compare CheckMacValue method testing result: " + cmprChkMacValue());
 //		System.out.println("apple pay create order: " + postCreateServerOrder());
@@ -184,18 +191,23 @@ public class ExampleAllInOne {
 	
 	public static String genAioCheckOutCVS(){
 		AioCheckOutCVS obj = new AioCheckOutCVS();
-		InvoiceObj invoice = new InvoiceObj();
+		//InvoiceObj invoice = new InvoiceObj();
 		UUID uid = UUID.randomUUID();
 		obj.setMerchantTradeNo(uid.toString().replaceAll("-", "").substring(0, 20));
-		obj.setMerchantTradeDate("2017/01/01 08:05:23");
+		Date date_now = new Date();
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		obj.setMerchantTradeDate(sdFormat.format(date_now));
 		obj.setTotalAmount("50");
 		obj.setTradeDesc("test Description");
 		obj.setItemName("TestItem");
-		obj.setReturnURL("http://211.23.128.214:5000");
-		obj.setNeedExtraPaidInfo("N");
-		obj.setStoreExpireDate("3");
-		obj.setInvoiceMark("Y");
-		invoice.setRelateNumber("test201217test");
+		obj.setReturnURL("http://" + ECPay.ServerIP + ":80/return.php");
+		obj.setNeedExtraPaidInfo("Y");
+		obj.setStoreExpireDate("1440");
+		obj.setInvoiceMark("N");
+		obj.setPaymentInfoURL("http://" + ECPay.ServerIP + ":80/php_post_test.php");
+		obj.setClientRedirectURL("http://" + ECPay.ServerIP + ":" + ECPay.port + "/ClientRedirectURL");
+		obj.setChooseSubPayment("CVS");
+		/*invoice.setRelateNumber("test201217test");
 		invoice.setCustomerID("123456");
 		invoice.setCarruerType("1");
 		invoice.setTaxType("1");
@@ -212,8 +224,19 @@ public class ExampleAllInOne {
 		invoice.setInvoiceItemCount("1");
 		invoice.setInvoiceItemWord("個");
 		invoice.setInvoiceItemPrice("50");
-		invoice.setInvoiceItemTaxType("1");
-		String form = all.aioCheckOut(obj, invoice);
+		invoice.setInvoiceItemTaxType("1");*/
+		
+		String form = all.aioCheckOut(obj, null);
+		String CheckMacValue =  all.createCheckMacValue(obj, null);
+		//System.out.println("Create CheckMacValue = " + CheckMacValue);
+		String httpValue = EcpayFunction.genHttpValue(obj, CheckMacValue);
+		//System.out.println("\n\n\nCreate httpValue = " + httpValue + "\n\n\n");
+		String createServerOrderUrl = all.getAioCheckOutUrl();
+		//System.out.println("createServerOrderUrl = " + createServerOrderUrl + "\n");
+		//httpPostRunnable h2 = new httpPostRunnable("https://payment-stage.ecpay.com.tw/SP/CreateTrade",httpValue,"UTF-8");
+		httpPostRunnable h2 = new httpPostRunnable(createServerOrderUrl,httpValue,"UTF-8");
+        Thread thr = new Thread(h2);
+        thr.start();
 		return form;
 	}
 	

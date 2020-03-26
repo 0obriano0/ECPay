@@ -59,9 +59,12 @@ public class EcpayFunction {
 	public final static String genCheckMacValue(String key, String iv, Object obj){
 		Class<?> cls = obj.getClass();
 		List<String> fieldNames = getSortedFieldNames(cls);
+		//System.out.println("fieldNames = " + fieldNames.toString());
+		
 		String data = "";
 		try{
 			for(String name: fieldNames){
+				//System.out.println("fieldNames = " + name);
 				if(name != "CheckMacValue" && name != "PaymentToken"){
 					Method method = cls.getMethod("get"+name, null);
 					data = data + '&' + name + '=' + method.invoke(obj).toString();
@@ -71,6 +74,7 @@ public class EcpayFunction {
 			urlEncode = netUrlEncode(urlEncode);
 			return hash(urlEncode.getBytes(), "SHA-256");
 		} catch(Exception e){
+			e.printStackTrace();
 			throw new EcpayException(ErrorMessage.GEN_CHECK_MAC_VALUE_FAIL);
 		}
 	}
@@ -157,6 +161,7 @@ public class EcpayFunction {
 		List<String> fieldNames = getSortedFieldNames(cls);
 		Method method;
 		String result = "";
+		//System.out.println("製作httpvalue檔案中");
 		for(int i = 0; i < fieldNames.size(); i++){
 			try{
 				method = cls.getMethod("get"+fieldNames.get(i), null);
@@ -164,6 +169,7 @@ public class EcpayFunction {
 			} catch(Exception e){
 				throw new EcpayException(ErrorMessage.OBJ_MISSING_FIELD);
 			}
+			//System.out.println("fieldNames.get(i) = " + fieldNames.get(i));
 			result = result + fieldNames.get(i) + '&';
 		}
 		return result + "CheckMacValue=" + CheckMacValue;
@@ -233,6 +239,7 @@ public class EcpayFunction {
 			in.close();
 			return response.toString();
 		} catch(Exception e){
+			e.printStackTrace();
 			throw new EcpayException(e.getMessage());
 		}
 	}

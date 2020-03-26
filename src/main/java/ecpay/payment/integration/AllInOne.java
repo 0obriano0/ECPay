@@ -22,6 +22,8 @@ import ecpay.payment.integration.domain.AioCheckOutDevide;
 import ecpay.payment.integration.domain.AioCheckOutOneTime;
 import ecpay.payment.integration.domain.AioCheckOutPeriod;
 import ecpay.payment.integration.domain.AioCheckOutWebATM;
+import ecpay.payment.integration.domain.CVSOrBARCODEClientRequestObj;
+import ecpay.payment.integration.domain.CVSOrBARCODEPaymentInfoURLObj;
 import ecpay.payment.integration.domain.CVSOrBARCODERequestObj;
 import ecpay.payment.integration.domain.CaptureObj;
 import ecpay.payment.integration.domain.CreateServerOrderObj;
@@ -91,6 +93,29 @@ public class AllInOne extends AllInOneBase{
 		} else{
 			return false;
 		}
+	}
+	
+	/**
+	 * 產生CheckMacValue
+	 * @param aio object
+	 * @param invoice obj
+	 * @return string
+	 */
+	public String createCheckMacValue(Object aio,InvoiceObj invoice) {
+		Hashtable<String, String> fieldValue = EcpayFunction.objToHashtable(aio);
+		Hashtable<String, String> invoiceField = new Hashtable<String, String>();
+		if(invoice != null){
+			invoiceField = EcpayFunction.objToHashtable(invoice);
+			fieldValue.putAll(invoiceField);
+		}
+		String CheckMacValue = EcpayFunction.genCheckMacValue(HashKey, HashIV, fieldValue);
+		return CheckMacValue;	
+	}
+	
+	public String getAioCheckOutUrl() {
+		VerifyAioCheckOut verify = new VerifyAioCheckOut();
+		aioCheckOutUrl = verify.getAPIUrl(operatingMode);
+		return aioCheckOutUrl;
 	}
 	
 	/**
@@ -534,14 +559,39 @@ public class AllInOne extends AllInOneBase{
 				throw new EcpayException(ErrorMessage.CHECK_MAC_VALUE_NOT_EQUALL_ERROR);
 			}
 			return obj;
-		}else{
-			CVSOrBARCODERequestObj obj = new CVSOrBARCODERequestObj();
+		}else if(parameterNames.contains("PaymentNo")){
+			//CVSOrBARCODERequestObj obj = new CVSOrBARCODERequestObj();
+			CVSOrBARCODEPaymentInfoURLObj obj = new CVSOrBARCODEPaymentInfoURLObj();
 			for(String name: parameterNames){
 				Method method;
 				try {
-					method = obj.getClass().getMethod("set"+name, null);
+					//System.out.println("讀取資料 = " + name);
+					//method = obj.getClass().getMethod("set"+name, null);
+					method = obj.getClass().getMethod("set"+name, String.class);
+					method.invoke(obj, req.getParameter(name));
+					//System.out.println("資料讀取完成 => " + name + " = " + req.getParameter(name));
+				} catch(Exception e){
+					e.printStackTrace();
+					throw new EcpayException(ErrorMessage.OBJ_MISSING_FIELD);
+				}
+			}
+			log.info("CVSRequest params: " + obj.toString());
+			String checkMacValue = EcpayFunction.genCheckMacValue(HashKey, HashIV, obj);
+			log.info("CVSRequest self generate CheckMacValue: " + checkMacValue + ", received CheckMacValue: " + obj.getCheckMacValue());
+			if(!checkMacValue.equals(obj.getCheckMacValue())){
+				log.error(ErrorMessage.CHECK_MAC_VALUE_NOT_EQUALL_ERROR);
+				throw new EcpayException(ErrorMessage.CHECK_MAC_VALUE_NOT_EQUALL_ERROR);
+			}
+			return obj;
+		}else{
+			CVSOrBARCODEClientRequestObj obj = new CVSOrBARCODEClientRequestObj();
+			for(String name: parameterNames){
+				Method method;
+				try {
+					method = obj.getClass().getMethod("set"+name, String.class);
 					method.invoke(obj, req.getParameter(name));
 				} catch(Exception e){
+					e.printStackTrace();
 					throw new EcpayException(ErrorMessage.OBJ_MISSING_FIELD);
 				}
 			}
