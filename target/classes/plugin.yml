@@ -1,0 +1,14 @@
+name: ECPay
+main: com.brian.ECPay.ECPay
+version: 1.0.0
+author: 0obrino0
+website: www.youtube.com/user/brian041301
+commands:
+   ecpay:
+      description: ECPay Commands.
+      permission: ECPay.player
+      permission-message: you can not use it
+permissions:
+   ECPay.player:
+      description: the base command can use.
+      default: true
