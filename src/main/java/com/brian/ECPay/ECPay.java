@@ -10,6 +10,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.eclipse.jetty.server.Server;
 
 import com.brian.ECPay.webHandler.ResponseHandler;
+import com.brian.ECPay.InventoryGUI.InventoryMenu;
 
 import example.ExampleAllInOne;
 
@@ -29,7 +30,7 @@ public class ECPay extends JavaPlugin {
         port = getConfig().getInt("port");
         ServerIP = getConfig().getString("ServerIP");
         
-        this.getLogger().info("將開啟port " + port + " 作為 HTTP API 伺服器");
+        /*this.getLogger().info("將開啟port " + port + " 作為 HTTP API 伺服器");
         this.getLogger().info("server = http://" + ServerIP + ":" + port + "/");
         webTask = new BukkitRunnable() {
             @Override
@@ -48,7 +49,7 @@ public class ECPay extends JavaPlugin {
         
         this.getLogger().info("使用綠界科技 ");
         a = new ExampleAllInOne();
-        a.test();
+        a.test();*/
     }
     
     public void onDisable() {
@@ -63,8 +64,9 @@ public class ECPay extends JavaPlugin {
     
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
     	if (cmd.getName().equalsIgnoreCase("ecpay")) {
-            if (!(sender instanceof Player)) {
-            	a.test();
+            if ((sender instanceof Player)) {
+            	//a.test();
+            	InventoryMenu.INVENTORY.open((Player) sender);
                 return true;
             }
     	}
