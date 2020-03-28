@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import com.brian.ECPay.AnsiColor;
-import com.brian.ECPay.ECPay;
 import com.brian.ECPay.DataBase.DataBase;
 
 public class CopyFileAPI {

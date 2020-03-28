@@ -3,6 +3,8 @@ main: com.brian.ECPay.ECPay
 version: ${full.version}
 author: 0obrino0
 website: www.youtube.com/user/brian041301
+api-version: 1.13
+depend: [SmartInvs]
 commands:
    ecpay:
       description: ECPay Commands.

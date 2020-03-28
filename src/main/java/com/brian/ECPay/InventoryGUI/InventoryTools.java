@@ -29,13 +29,14 @@ public class InventoryTools {
 	 * @param Durability 設定耐久值
 	 * @return ItemStack minecraft 物品類別
 	 */
+	@SuppressWarnings("deprecation")
 	static ItemStack createPageButton(Material MaterialType,short Durability,String itemname) {
 		ItemMeta newItemMeta = null;
 		ItemStack Button = new ItemStack(MaterialType);
-		Button.setDurability(Durability);
 		newItemMeta = Button.getItemMeta();
 		newItemMeta.setDisplayName(itemname);
 		Button.setItemMeta(newItemMeta);
+		Button.setDurability(Durability);
 		return Button;
 	}
 	/**
