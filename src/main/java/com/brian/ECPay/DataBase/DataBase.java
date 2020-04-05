@@ -19,20 +19,6 @@ import org.bukkit.Server;
 import org.bukkit.plugin.Plugin;
 
 public class DataBase {
-	/**
-	 * 主插件類別
-	 * @info 使用以此插件來做事
-	 */
-	public static Plugin plugin;
-	
-	// 設定檔
-	//public static LoadConfig LoadConfig;
-	
-	/**
-	 * 伺服器類別
-	 * @info 使用以此來讀取伺服器資料
-	 */
-	public static Server server;
 	
 	/**
 	 * 語言包
@@ -47,7 +33,7 @@ public class DataBase {
 	public static String pluginMainDir = "./plugins/MobDrop/";
 	
 	//指令目錄
-	//public static MainList CommandsList = new MainList();
+	private static List<String> Commands = null;
 	
 	//公開顯示訊息
 	//public static Config Config;
@@ -62,45 +48,49 @@ public class DataBase {
 		System.out.print("[ECPay] " + msg);
 	}
 	
-	public static List<String> getCommands(){
-    	URL jarURL = plugin.getClass().getResource("/com/brian/ECPay/Command");
-    	URI uri;
-		try {
-			FileSystem fileSystem = null;
-			uri = jarURL.toURI();
-			Path myPath;
-	        if (uri.getScheme().equals("jar")) {
-	            fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
-	            myPath = fileSystem.getPath("/com/brian/ECPay/Command");
-	            
-	        } else {
-	            myPath = Paths.get(uri);
-	        }
-	        List<String> Commands = new ArrayList<String>();
-	        for (Iterator<Path> it = Files.walk(myPath, 1).iterator(); it.hasNext();){
-	        	String[] path = it.next().toString().split("/");
-	        	
-	        	String file = path[path.length - 1];
-	        	if(file.matches("(.*)class$")) {
-	        		file = file.split("\\.")[0];
-	        		if(file.matches("^Command.*")) {
-		        		String filename = file.split("Command")[1];
-		        		System.out.println("get Command = " + filename);
-		        		Commands.add(filename);
+	/**
+	 * 抓取指令列表(/ecpay <列表資料>)
+	 * @return
+	 */
+	public static List<String> getCommands(Plugin plugin){
+		if(Commands == null) {
+			Commands = new ArrayList<String>();
+			URL jarURL = plugin.getClass().getResource("/com/brian/ECPay/Command");
+	    	URI uri;
+			try {
+				FileSystem fileSystem = null;
+				uri = jarURL.toURI();
+				Path myPath;
+		        if (uri.getScheme().equals("jar")) {
+		            fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
+		            myPath = fileSystem.getPath("/com/brian/ECPay/Command");
+		            
+		        } else {
+		            myPath = Paths.get(uri);
+		        }
+		        for (Iterator<Path> it = Files.walk(myPath, 1).iterator(); it.hasNext();){
+		        	String[] path = it.next().toString().split("/");
+		        	
+		        	String file = path[path.length - 1];
+		        	if(file.matches("(.*)class$")) {
+		        		file = file.split("\\.")[0];
+		        		if(file.matches("^Command.*")) {
+			        		String filename = file.split("Command")[1];
+			        		Commands.add(filename);
+			        	}
 		        	}
-	        	}
-	            //System.out.println(it.next());
-	        }
-	        fileSystem.close();
-	        return Commands;
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		            //System.out.println(it.next());
+		        }
+		        fileSystem.close();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		return null;
+		return Commands;
         
     }
 }

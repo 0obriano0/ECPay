@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.bukkit.plugin.Plugin;
+
 import com.brian.ECPay.AnsiColor;
 import com.brian.ECPay.DataBase.DataBase;
 
@@ -19,8 +21,8 @@ public class tools {
 	 * @param Success 成功資料
 	 * @param Fail 失敗資料
 	 */
-	public static void Setprint(String title, String Name, int totle, int Success, int Fail) {
-		DataBase.plugin.getLogger().info(AnsiColor.CYAN + "[" + title + "] " + AnsiColor.GREEN + Name + " load " + AnsiColor.PURPLE + "Totle: " + AnsiColor.WHITE + totle + AnsiColor.YELLOW + "  Success: " + AnsiColor.WHITE + Success + AnsiColor.RED + "  Fail:  " + AnsiColor.WHITE + Fail + AnsiColor.RESET);
+	public static void Setprint(Plugin plugin,String title, String Name, int totle, int Success, int Fail) {
+		plugin.getLogger().info(AnsiColor.CYAN + "[" + title + "] " + AnsiColor.GREEN + Name + " load " + AnsiColor.PURPLE + "Totle: " + AnsiColor.WHITE + totle + AnsiColor.YELLOW + "  Success: " + AnsiColor.WHITE + Success + AnsiColor.RED + "  Fail:  " + AnsiColor.WHITE + Fail + AnsiColor.RESET);
 	}
 	/**
 	 * 檔案寫入

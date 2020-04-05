@@ -2,6 +2,7 @@ package com.brian.ECPay;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -12,8 +13,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-
-import org.eclipse.jetty.server.Server;
 
 import com.brian.ECPay.webHandler.ResponseHandler;
 import com.brian.ECPay.Command.IECPayCommand;
@@ -27,14 +26,14 @@ public class ECPay extends JavaPlugin {
 	public static Plugin plugin;
 	public static int port;
 	public static String ServerIP;
-	public static Server server;
+	public static org.eclipse.jetty.server.Server webserver;
 	public static BukkitTask webTask;
 	public ExampleAllInOne a;
+	
     @Override
     public void onEnable() {
         plugin = this;
-        DataBase.plugin = this;
-        DataBase.server = getServer();
+        
         saveDefaultConfig();
         reloadConfig();
         port = getConfig().getInt("port");
@@ -46,11 +45,11 @@ public class ECPay extends JavaPlugin {
             @Override
             public void run() {
             	plugin.getLogger().info("Web running");
-                server = new Server(port);
-                server.setHandler(new ResponseHandler());
+            	webserver = new org.eclipse.jetty.server.Server(port);
+            	webserver.setHandler(new ResponseHandler());
                 try {
-                    server.start();
-                    server.join();
+                	webserver.start();
+                	webserver.join();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -58,13 +57,14 @@ public class ECPay extends JavaPlugin {
         }.runTaskAsynchronously(this);
         
         this.getLogger().info("使用綠界科技 ");
-        a = new ExampleAllInOne();
+        //a = new ExampleAllInOne();
         //a.test();
     }
     
+    @Override
     public void onDisable() {
     	try {
-    		server.stop();
+    		webserver.stop();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,34 +72,59 @@ public class ECPay extends JavaPlugin {
     	webTask.cancel();
     }
     
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    	return ECPayCommand(sender,command,label,args,ECPay.class.getClassLoader(),"com.brian.ECPay.Command");
+    }
+    
+    public boolean ECPayCommand(CommandSender sender, Command command, String label, String[] args,final ClassLoader classLoader, final String commandPath) {
     	if (label.equalsIgnoreCase("ecpay")) {
-    		
-    		ECPayCommand(sender,command,label,args,ECPay.class.getClassLoader(),"com.brian.ECPay.Command");
-    		DataBase.getCommands();
             if ((sender instanceof Player)) {
             	
             	//a.test();
-            	InventoryMenu.INVENTORY.open((Player) sender);
+            	
                 return true;
             }
     	}
 		return false;
     }
     
-    public boolean ECPayCommand(CommandSender sender, Command command, String label, String[] args,final ClassLoader classLoader, final String commandPath) {
-    	if(args.length == 0) {
-    		
-    	}
-    	return true;
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+    	return onTabComplete(sender,cmd,label,args,ECPay.class.getClassLoader(),"com.brian.ECPay.Command");
     }
     
-    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
-    	List<String> show_commands = new ArrayList<String>();
-		for (String key : DataBase.getCommands()){
-			if(key.indexOf(args[0].toLowerCase()) != -1)
-				show_commands.add(key);	
-		}
-		return show_commands;
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args,final ClassLoader classLoader, final String commandPath){
+    	if(args.length == 1) {
+    		List<String> show_commands = new ArrayList<String>();
+    		for (String key : DataBase.getCommands(plugin)){
+    			IECPayCommand cmd = getCommandClass(key,ECPay.class.getClassLoader(),"com.brian.ECPay.Command");
+    			if(key.indexOf(args[0].toLowerCase()) != -1 && cmd.hasPermission(sender))
+    				show_commands.add(key);
+    		}
+    		return show_commands;
+    	}else if(args.length > 1 && DataBase.getCommands(plugin).contains(args[0])){
+    		
+    	}
+    	return Collections.emptyList();
+    }
+    
+    /**
+	 *  取得指令的類別(class)
+	 * @param command 指另名稱
+     * @param classLoader 抓取此插件讀取classLoader指令
+     * @param commandPath 要抓取插件的檔案位置
+     * @return 該class資料
+     */
+    public IECPayCommand getCommandClass(String command,final ClassLoader classLoader, final String commandPath) {
+    	IECPayCommand cmd = null;
+        try {
+            cmd = (IECPayCommand) classLoader.loadClass(commandPath + ".Command" + command).newInstance();
+        }catch(InstantiationException ex) {
+        	ex.printStackTrace();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+		return cmd;
     }
 }

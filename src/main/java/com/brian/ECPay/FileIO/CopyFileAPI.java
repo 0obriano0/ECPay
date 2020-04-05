@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.bukkit.plugin.Plugin;
+
 import com.brian.ECPay.AnsiColor;
 import com.brian.ECPay.DataBase.DataBase;
 
@@ -33,7 +35,7 @@ public class CopyFileAPI {
         }
     }
 	
-	public static boolean createFile(String Dir,String Filename,String JarURL) {
+	public static boolean createFile(Plugin plugin,String Dir,String Filename,String JarURL) {
 		Path p = Paths.get(Dir);    //路徑設定
         /*確認資料夾是否存在*/
         if (!Files.exists(p)) {
@@ -44,11 +46,11 @@ public class CopyFileAPI {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            DataBase.plugin.getLogger().info(AnsiColor.GREEN + "[DirCreate] " + AnsiColor.GREEN +  "資料夾創建成功" + AnsiColor.RESET);
+            plugin.getLogger().info(AnsiColor.GREEN + "[DirCreate] " + AnsiColor.GREEN +  "資料夾創建成功" + AnsiColor.RESET);
         }
 		File QuestMaker = new File(Dir + Filename);
         if (!QuestMaker.exists()) {
-            InputStream jarURL = DataBase.plugin.getClass().getResourceAsStream(JarURL);
+            InputStream jarURL = plugin.getClass().getResourceAsStream(JarURL);
             try {
             	copyFile(jarURL, new File(Dir + Filename));
             	return true;

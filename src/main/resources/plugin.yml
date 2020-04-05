@@ -8,9 +8,21 @@ depend: [SmartInvs]
 commands:
    ecpay:
       description: ECPay Commands.
-      permission: ECPay.player
-      permission-message: you can not use it
 permissions:
-   ECPay.player:
-      description: the base command can use.
+   ECPay.*:
+      default: op
+      description: Give players with op everything by default
+      children:
+         ECPay.user.*: true
+         ECPay.admin.*: true
+   ECPay.user.*:
       default: true
+      children:
+         ECPay.user: true
+         ECPay.user.menu: true
+         ECPay.user.help: true
+   ECPay.admin.*:
+      default: op
+      children:
+         ECPay.admin: true
+         ECPay.admin.test: true

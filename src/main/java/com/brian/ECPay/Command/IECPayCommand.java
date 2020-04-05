@@ -12,10 +12,30 @@ public interface IECPayCommand  {
 	 * @return 插件名稱
 	 */
 	String getName();
+	
+	/**
+	 * 拿取權限列表
+	 * @return
+	 */
+	List<String> getPermissions();
+	
+	/**
+	 * 檢查是否有權限
+	 * @param sender 輸入者(黑盒子)
+	 * @return
+	 */
+	boolean hasPermission(CommandSender sender);
+	
+	/**
+	 * 檢查是否有權限
+	 * @param sender 輸入者(黑盒子 or 玩家)
+	 * @return
+	 */
+	boolean hasPermission(Player player);
 
 	/**
 	 *  處理從cmd傳來的指令用
-	 * @param sender 輸入者(黑盒子)
+	 * @param player 輸入者(玩家)
 	 * @param commandLabel 指令Title
 	 * @param cmd 使用指令的使用者相關資訊
 	 * @param args 指令後半部分
