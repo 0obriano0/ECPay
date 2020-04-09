@@ -17,9 +17,11 @@ public class ECPayCommand implements IECPayCommand {
 	
 	private final transient String name;
 	private final transient List<String> permissions;
+	private final transient String help;
 	
-	protected ECPayCommand(final String name,final List<String> permissions) {
+	protected ECPayCommand(final String name,final String help,final List<String> permissions) {
         this.name = name;
+        this.help = help;
         this.permissions = permissions;
     }
 	
@@ -27,6 +29,11 @@ public class ECPayCommand implements IECPayCommand {
 	public String getName() {
         return name;
     }
+	
+	@Override
+	public String getHelp() {
+		return help;
+	}
 	
 	@Override
 	public List<String> getPermissions() {

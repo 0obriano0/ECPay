@@ -11,7 +11,9 @@ import com.brian.ECPay.InventoryGUI.InventoryMenu;
 public class Commandmenu extends ECPayCommand{
 
 	public Commandmenu() {
-		super("menu",new ArrayList<String>(Arrays.asList("ECPay.user.menu")));
+		super(  "menu",
+				"",
+				new ArrayList<String>(Arrays.asList("ECPay.user.menu")));
 	}
 	
 	@Override

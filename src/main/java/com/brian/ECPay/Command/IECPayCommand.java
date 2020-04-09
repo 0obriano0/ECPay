@@ -14,6 +14,12 @@ public interface IECPayCommand  {
 	String getName();
 	
 	/**
+	 * 拿取help指令說明
+	 * @return
+	 */
+	String getHelp();
+	
+	/**
 	 * 拿取權限列表
 	 * @return
 	 */
