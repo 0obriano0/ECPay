@@ -24,7 +24,9 @@ public class Commandhelp extends ECPayCommand{
 		sender.sendMessage("=============== ECPay 交易系統 ===============");
 		sender.sendMessage(" ");
 		for(String command_value :DataBase.getCommands(ECPay.plugin)) {
-			sender.sendMessage(ECPay.getCommandClass(command_value).getHelp());
+			IECPayCommand cmd = ECPay.getCommandClass(command_value);
+			if(cmd.hasPermission(sender))
+				sender.sendMessage(cmd.getHelp());
 		}
 		sender.sendMessage(" ");
 		sender.sendMessage("===========================================");
