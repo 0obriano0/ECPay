@@ -7,19 +7,20 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.brian.ECPay.InventoryGUI.InventoryMenu;
+import com.brian.ECPay.ECPay;
 
-public class Commandtest extends ECPayCommand{
-
-	public Commandtest() {
-		super(  "test",
-				"/test 測試指令",
-				new ArrayList<String>(Arrays.asList("ECPay.admin.test")));
+public class Commandreload extends ECPayCommand{
+	public Commandreload() {
+		super(  "reload",
+				"/reload 重新讀取資料",
+				new ArrayList<String>(Arrays.asList("ECPay.admin.reload")));
 	}
 	
 	@Override
 	public void run(CommandSender sender, String commandLabel, Command command, String[] args) throws Exception {
-		sender.sendMessage("test");
+		sender.sendMessage("重新讀取資料...");
+		ECPay.reload();
+		sender.sendMessage("資料讀取完成");
 	}
 	
 	@Override

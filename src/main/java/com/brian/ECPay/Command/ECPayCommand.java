@@ -60,22 +60,22 @@ public class ECPayCommand implements IECPayCommand {
 	}
 	
 	@Override
-	public void run(CommandSender sender, String commandLabel, Command cmd, String[] args) throws Exception {
+	public void run(CommandSender sender, String commandLabel, Command command, String[] args) throws Exception {
+		sender.sendMessage("無法在此使用指令");
+	}
+
+	@Override
+	public void run(Player player, String commandLabel, Command command, String[] args) throws Exception {
 		
 	}
 
 	@Override
-	public void run(Player player, String commandLabel, Command cmd, String[] args) throws Exception {
-		
-	}
-
-	@Override
-	public List<String> tabComplete(CommandSender sender, String commandLabel, Command cmd, String[] args) {
+	public List<String> tabComplete(CommandSender sender, String commandLabel, Command command, String[] args) {
 		return Collections.emptyList();
 	}
 
 	@Override
-	public List<String> tabComplete(Player player, String commandLabel, Command cmd, String[] args) {
+	public List<String> tabComplete(Player player, String commandLabel, Command command, String[] args) {
 		return Collections.emptyList();
 	}
 

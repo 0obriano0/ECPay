@@ -80,6 +80,7 @@ public class DataBase {
 			        	}
 		        	}
 		            //System.out.println(it.next());
+		        	Collections.sort(Commands);
 		        }
 		        fileSystem.close();
 			} catch (URISyntaxException e) {

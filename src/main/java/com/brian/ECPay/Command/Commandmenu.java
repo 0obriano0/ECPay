@@ -12,12 +12,12 @@ public class Commandmenu extends ECPayCommand{
 
 	public Commandmenu() {
 		super(  "menu",
-				"",
+				"/menu 開啟資訊界面",
 				new ArrayList<String>(Arrays.asList("ECPay.user.menu")));
 	}
 	
 	@Override
-	public void run(Player player, String commandLabel, Command cmd, String[] args) throws Exception {
+	public void run(Player player, String commandLabel, Command command, String[] args) throws Exception {
 		InventoryMenu.INVENTORY.open(player);
 	}
 }
