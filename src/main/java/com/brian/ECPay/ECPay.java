@@ -34,7 +34,6 @@ public class ECPay extends JavaPlugin {
         
         saveDefaultConfig();
         reloadConfig();
-        
         File payment_confFile = new File(this.getDataFolder(), "payment_conf.xml");
         if (!payment_confFile.exists()) this.saveResource("payment_conf.xml", true);
         
@@ -153,9 +152,9 @@ public class ECPay extends JavaPlugin {
     }
     
     /**
-     * 開啟接收綠界科技的伺服器端
-     * @return 伺服器資料
-     */
+	  * 開啟接收綠界科技的伺服器端
+	 * @return 伺服器資料
+	 */
     private static org.eclipse.jetty.server.Server openWebServer() {
     	port = plugin.getConfig().getInt("port");
         ServerIP = plugin.getConfig().getString("ServerIP");
@@ -180,7 +179,7 @@ public class ECPay extends JavaPlugin {
     }
     
     /**
-     * 關閉接收綠界科技的伺服器端
+	 * 關閉接收綠界科技的伺服器端
      * @return
      */
     private static boolean closeWebServer() {

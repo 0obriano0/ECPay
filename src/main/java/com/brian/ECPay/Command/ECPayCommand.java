@@ -2,16 +2,10 @@ package com.brian.ECPay.Command;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginDescriptionFile;
-
-import com.google.common.collect.Lists;
 
 public class ECPayCommand implements IECPayCommand {
 	

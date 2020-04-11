@@ -7,8 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.brian.ECPay.InventoryGUI.InventoryMenu;
-
 public class Commandtest extends ECPayCommand{
 
 	public Commandtest() {
