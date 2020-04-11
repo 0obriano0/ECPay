@@ -1,4 +1,4 @@
-﻿package com.brian.ECPay.FileIO;
+package com.brian.ECPay.FileIO;
 
 import java.io.File;
 import java.io.FileOutputStream;

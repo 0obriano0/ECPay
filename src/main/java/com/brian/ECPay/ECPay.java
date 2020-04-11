@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,10 +14,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.brian.ECPay.webHandler.ResponseHandler;
-import com.brian.ECPay.Command.Commandhelp;
 import com.brian.ECPay.Command.IECPayCommand;
 import com.brian.ECPay.DataBase.DataBase;
-import com.brian.ECPay.InventoryGUI.InventoryMenu;
 
 import example.ExampleAllInOne;
 
@@ -38,11 +35,12 @@ public class ECPay extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
         
+        File payment_confFile = new File(this.getDataFolder(), "payment_conf.xml");
+        if (!payment_confFile.exists()) this.saveResource("payment_conf.xml", true);
+        
         openWebServer();
         
         this.getLogger().info("使用綠界科技 ");
-        //a = new ExampleAllInOne();
-        //a.test();
     }
     
     @Override
