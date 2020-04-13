@@ -1,51 +1,57 @@
 items:
-   玻璃:
-      x: 1
-      y: 1
-      ItemStack: STAINED_GLASS_PANE
-      ItemName: §2玻璃§f
-      Lores:
-      - "&f牆壁"
-      Color: 2
-   物品1:
-      x: 2
-      y: 1
-      ItemStack: WOOL
-      ItemName: §2有顏色的羊毛§f
-      Lores:
-      - "&f無意義"
-      - "&c爽拉"
-      Color: 4
-      Unbreakable: true
-   物品2:
-      x: 3
-      y: 1
-      ItemStack: STONE_SWORD
-      ItemName: §2奇怪的劍§f
-      Lores:
-      - "&f無意義"
-      - "&c爽拉"
-      Unbreakable: true
-      Enchants: 
-      - DURABILITY:0
-      - LOOT_BONUS_BLOCKS:10
-      ItemFlags:
-      - HIDE_ENCHANTS
-   物品3:
-      x: 4
-      y: 1
-      ItemStack: DIAMOND
-      ItemName: §b鑽石§f
-      UseCustomName: false
-   頭顱1:
-      x: 5
-      y: 1
-      ItemStack: PLAYER_HEAD
-      Skull_Player: LuPC
-      ItemName: §bLuPC的大頭貼§f
-   頭顱2:
-      x: 6
-      y: 1
-      ItemStack: CUSTOM_SKULL
-      Texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjRiYTUzZjgzOThlOGNiMDBkNTgwNmY5NTM5M2UwYzAyZTE1MTJjMDBhN2I2NTc0ZTIwYjg4Y2Y0ODg2OWJkNSJ9fX0=
-      ItemName: §b自定義的頭顱§f
+    玻璃:
+        x: 1
+        y: 1
+        ItemStack: STAINED_GLASS_PANE
+        ItemName: §2玻璃§f
+        Lores:
+        - "&f牆壁"
+        Color: 2
+    物品1:
+        x: 2
+        y: 1
+        ItemStack: WOOL
+        ItemName: §2有顏色的羊毛§f
+        Lores:
+        - "&f無意義"
+        - "&c爽拉"
+        Color: 4
+        Unbreakable: true
+    物品2:
+        x: 3
+        y: 1
+        ItemStack: STONE_SWORD
+        ItemName: §2奇怪的劍§f
+        Lores:
+        - "&f無意義"
+        - "&c爽拉"
+        Unbreakable: true
+        Enchants: 
+        - DURABILITY:0
+        - LOOT_BONUS_BLOCKS:10
+        ItemFlags:
+        - HIDE_ENCHANTS
+    物品3:
+        x: 4
+        y: 1
+        ItemStack: DIAMOND
+        ItemName: §b鑽石§f
+        UseCustomName: false
+    頭顱1:
+        x: 5
+        y: 1
+        ItemStack: PLAYER_HEAD
+        Skull_Player: LuPC
+        ItemName: §bLuPC的大頭貼§f
+    頭顱2:
+        x: 6
+        y: 1
+        ItemStack: CUSTOM_SKULL
+        Texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjRiYTUzZjgzOThlOGNiMDBkNTgwNmY5NTM5M2UwYzAyZTE1MTJjMDBhN2I2NTc0ZTIwYjg4Y2Y0ODg2OWJkNSJ9fX0=
+        ItemName: §b自定義的頭顱§f
+    back:
+        x: 1
+        y: 3
+        ItemStack: CUSTOM_SKULL
+        Texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWQ5YzkzZjhiOWYyZjhmOTFhYTQzNzc1NTFjMjczODAwMmE3ODgxNmQ2MTJmMzlmMTQyZmM5MWEzZDcxM2FkIn19fQ==
+        ItemName: §b自定義的頭顱§f
