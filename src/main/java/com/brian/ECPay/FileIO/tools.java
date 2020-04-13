@@ -10,8 +10,6 @@ import java.util.List;
 import org.bukkit.plugin.Plugin;
 
 import com.brian.ECPay.AnsiColor;
-import com.brian.ECPay.DataBase.DataBase;
-
 public class tools {
 	/**
 	 * 基本文字輸出 顯示讀取成功及失敗

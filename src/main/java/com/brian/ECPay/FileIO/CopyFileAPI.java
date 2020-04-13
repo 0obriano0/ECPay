@@ -11,7 +11,6 @@ import java.nio.file.Paths;
 import org.bukkit.plugin.Plugin;
 
 import com.brian.ECPay.AnsiColor;
-import com.brian.ECPay.DataBase.DataBase;
 
 public class CopyFileAPI {
 	public static void copyFile(InputStream in, File out) throws Exception {

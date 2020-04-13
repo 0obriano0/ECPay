@@ -34,6 +34,9 @@ public class ECPay extends JavaPlugin {
         
         saveDefaultConfig();
         reloadConfig();
+        
+        DataBase.fileInventorymenu.reloadFile();
+        
         File payment_confFile = new File(this.getDataFolder(), "payment_conf.xml");
         if (!payment_confFile.exists()) this.saveResource("payment_conf.xml", true);
         
@@ -149,6 +152,7 @@ public class ECPay extends JavaPlugin {
     	closeWebServer();
     	plugin.reloadConfig();
     	openWebServer();
+    	DataBase.fileInventorymenu.reloadFile();
     }
     
     /**

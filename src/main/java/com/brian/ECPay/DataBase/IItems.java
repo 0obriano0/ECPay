@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
 
+import com.brian.ECPay.Exception.ItemSettingfailException;
+
 public interface IItems {
 	/**
 	 * @return 物品名稱(自定義名稱)
@@ -101,12 +103,41 @@ public interface IItems {
 	short getdurability();
 	/**
 	 * @param durability 耐久度
+	 * @throws ItemSettingfailException 
 	 */
-	void setdurability(short durability);
+	void setdurability(short durability) throws ItemSettingfailException;
+	
+	/**
+	 * @return 顏色代碼
+	 */
+	int getItem_Color();
+	/**
+	 * @param 顏色代碼
+	 */
+	void setItem_Color(int Item_Color);
+	
+	/**
+	 * @return 自訂義頭顱名稱
+	 */
+	String gettexture();
+	/**
+	 * @param texture 自訂義頭顱名稱
+	 */
+	void settexture(String texture);
+	
+	/**
+	 * @return 玩家名稱(頭顱用)
+	 */
+	String getSKULL_Player();
+	/**
+	 * @param texture 玩家名稱(頭顱用)
+	 */
+	void setSKULL_Player(String SKULL_Player);
 	
 	/**
 	 * 創建資料檔
 	 * @return 取的該物品 ItemStack
 	 */
 	ItemStack getResultItem();
+	
 }

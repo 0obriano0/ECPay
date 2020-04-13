@@ -1,8 +1,14 @@
 ﻿package com.brian.ECPay.DataBase;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import com.brian.ECPay.ECPay;
 import com.brian.ECPay.Exception.ItemSettingfailException;
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -11,6 +17,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 
 /*
@@ -26,7 +33,7 @@ public class Items implements IItems{
 	//物品名稱
 	private transient String ItemName;
 	//物品名稱
-	private boolean UseCustomName;
+	private boolean UseCustomName = true;
 	//物品名稱(系統名稱)
 	private transient String ItemRealname;
 	// 物品說明
@@ -43,6 +50,12 @@ public class Items implements IItems{
 	private boolean Unbreakable;
 	//耐久度
 	private short durability;
+	//顏色
+	private int Item_Color = 0;
+	//自訂義頭顱
+	private String texture;
+	//玩家名稱(頭顱用)
+	private String SKULL_Player;
 	
 	public Items(String ItemName, String ItemRealname)throws ItemSettingfailException{
 		try {
@@ -58,55 +71,119 @@ public class Items implements IItems{
 	@Override
 	@SuppressWarnings("deprecation")
 	public ItemStack getResultItem() {
-		// 產生物品用
-		ItemStack ResultItem;
-	    ItemMeta newItemMeta;
-	    LeatherArmorMeta LeatherArmorMeta;
-	    
-		// 合成後得到的物品設定
-	    ResultItem = new ItemStack(Material.getMaterial(ItemRealname));
-	    
-	    ResultItem.setDurability(durability);
-	    
-		// 判斷是否要設定顏色
-		if(ItemRealname.split("_")[0].equals("LEATHER")) {
-			LeatherArmorMeta = (LeatherArmorMeta)ResultItem.getItemMeta();
-			LeatherArmorMeta.setColor(Color.fromRGB(this.Red, this.Green, this.Blue));
-			ResultItem.setItemMeta(LeatherArmorMeta);
+		if(ItemRealname.equals("PLAYER_HEAD") && !SKULL_Player.equals(""))
+			return getplayerhead();
+		else if(ItemRealname.equals("CUSTOM_SKULL") && !texture.equals(""))
+			return getcustomSkull();
+		else {
+			// 產生物品用
+			ItemStack ResultItem;
+		    ItemMeta newItemMeta;
+		    LeatherArmorMeta LeatherArmorMeta;
+		    
+		    String STR_color = "";
+		    if(Item_Color > 0) STR_color = DataBase.Color.get(Item_Color-1).toUpperCase() + "_";
+//		    ECPay.plugin.getLogger().info("ItemRealname = " + ItemRealname);
+//		    ECPay.plugin.getLogger().info("Item_Color = " + Item_Color);
+//		    ECPay.plugin.getLogger().info("STR_color + ItemRealname = " + STR_color + ItemRealname);
+			// 合成後得到的物品設定
+		    ResultItem = new ItemStack(Material.getMaterial(STR_color + ItemRealname));
+		    
+		    ResultItem.setDurability(durability);
+		    
+			// 判斷是否要設定顏色
+			if(ItemRealname.split("_")[0].equals("LEATHER")) {
+				LeatherArmorMeta = (LeatherArmorMeta)ResultItem.getItemMeta();
+				LeatherArmorMeta.setColor(Color.fromRGB(this.Red, this.Green, this.Blue));
+				ResultItem.setItemMeta(LeatherArmorMeta);
+			}
+			
+			newItemMeta = ResultItem.getItemMeta();
+			if(Enchants != null)
+				// 附魔
+				for (int i = 0; i < Enchants.size(); i++)
+				{
+					String[] EnchantsParts = Enchants.get(i).split(":");
+					int level = Integer.parseInt(EnchantsParts[1]);
+					Enchantment enchantment = Enchantment.getByName(EnchantsParts[0]);
+					newItemMeta.addEnchant(enchantment, level, true);
+				}
+			// 名稱
+			if (UseCustomName)
+				newItemMeta.setDisplayName(ItemName);
+			
+			// 說明
+			if (ItemLores !=null && ItemLores.size() > 0)
+			{
+				newItemMeta.setLore(ItemLores);
+			}
+			if(ItemFlags != null)
+				for(String itemflag : ItemFlags)
+					newItemMeta.addItemFlags(ItemFlag.valueOf(itemflag));
+			
+			if(Unbreakable) newItemMeta.setUnbreakable(Unbreakable);
+			
+			// 寫入資料
+			ResultItem.setItemMeta(newItemMeta);
+		    // 設定耐久為最高
+			ResultItem.setDurability((short)0);
+			// 回傳
+			return ResultItem;
 		}
-		
-		newItemMeta = ResultItem.getItemMeta();
-		// 附魔
-		for (int i = 0; i < this.Enchants.size(); i++)
-		{
-			String[] EnchantsParts = this.Enchants.get(i).split(":");
-			int level = Integer.parseInt(EnchantsParts[1]);
-			Enchantment enchantment = Enchantment.getByName(EnchantsParts[0]);
-			newItemMeta.addEnchant(enchantment, level, true);
-		}
-		// 名稱
-		if (this.UseCustomName)
-			newItemMeta.setDisplayName(this.ItemName);
-		
-		// 說明
-		if (this.ItemLores.size() > 0)
-		{
-			newItemMeta.setLore(this.ItemLores);
-		}
-		
-		for(String itemflag : ItemFlags)
-			newItemMeta.addItemFlags(ItemFlag.valueOf(itemflag));
-		
-		if(Unbreakable) newItemMeta.setUnbreakable(Unbreakable);
-		
-		// 寫入資料
-		ResultItem.setItemMeta(newItemMeta);
-	    // 設定耐久為最高
-		ResultItem.setDurability((short)0);
-		// 回傳
-		return ResultItem;
 	}
-
+	
+	/**
+	 * @return 取得玩家頭盧
+	 */
+	@SuppressWarnings("deprecation")
+	private ItemStack getplayerhead(){
+		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
+        SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
+        skullMeta.setDisplayName(SKULL_Player);
+        skullMeta.setOwningPlayer(ECPay.plugin.getServer().getOfflinePlayer(SKULL_Player));
+        skull.setItemMeta(skullMeta);
+		return skull;
+	}
+	
+	/**
+	 * @return 取得自訂義頭盧
+	 */
+	@SuppressWarnings("deprecation")
+	private ItemStack getcustomSkull(){
+        ItemStack head = new ItemStack(Material.LEGACY_SKULL_ITEM, 1, (short)3);
+        if (texture.isEmpty()) return head;
+       
+        SkullMeta headMeta = (SkullMeta) head.getItemMeta();
+        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+       
+        profile.getProperties().put("textures", new Property("textures", texture));
+       
+        try
+        {
+            Field profileField = headMeta.getClass().getDeclaredField("profile");
+            profileField.setAccessible(true);
+            profileField.set(headMeta, profile);
+           
+        }
+        catch (IllegalArgumentException|NoSuchFieldException|SecurityException | IllegalAccessException error)
+        {
+            error.printStackTrace();
+        }
+        
+        headMeta.setDisplayName("test");
+        
+        head.setItemMeta(headMeta);
+        return head;
+    }
+	
+	private List<String> formatListSting(List<String> formatdat) {
+		List<String> final_data = new ArrayList<String>();
+		for(String data : formatdat) {
+			final_data.add(data.replaceAll("&", "§"));
+		}
+		return final_data;
+	}
+	
 	@Override
 	public String getItemName() {
 		return ItemName;
@@ -115,7 +192,7 @@ public class Items implements IItems{
 	@Override
 	public void setItemName(String ItemName) throws NullPointerException{
 		if(ItemName == null) throw new NullPointerException();
-		this.ItemName = ItemName;
+		this.ItemName = ItemName.replaceAll("&", "§");
 	}
 
 	@Override
@@ -135,7 +212,7 @@ public class Items implements IItems{
 
 	@Override
 	public void setItemLores(List<String> ItemLores) {
-		this.ItemLores = ItemLores;
+		this.ItemLores = formatListSting(ItemLores);
 	}
 
 	@Override
@@ -217,7 +294,38 @@ public class Items implements IItems{
 	}
 
 	@Override
-	public void setdurability(short durability) {
+	public void setdurability(short durability) throws ItemSettingfailException {
+		if(durability < 0) throw new ItemSettingfailException("durability need >= 0");
 		this.durability = durability;
+	}
+	
+	@Override
+	public int getItem_Color() {
+		return Item_Color;
+	}
+
+	@Override
+	public void setItem_Color(int Item_Color) {
+		this.Item_Color = Item_Color;
+	}
+	
+	@Override
+	public String gettexture() {
+		return texture;
+	}
+
+	@Override
+	public void settexture(String texture) {
+		this.texture = texture;
+	}
+
+	@Override
+	public String getSKULL_Player() {
+		return SKULL_Player;
+	}
+
+	@Override
+	public void setSKULL_Player(String SKULL_Player) {
+		this.SKULL_Player = SKULL_Player;
 	}
 }

@@ -1,11 +1,10 @@
 ﻿package com.brian.ECPay.InventoryGUI;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 import com.brian.ECPay.DataBase.DataBase;
+import com.brian.ECPay.DataBase.InventoryItems;
 
 import fr.minuskube.inv.ClickableItem;
 import fr.minuskube.inv.SmartInventory;
@@ -22,16 +21,19 @@ public class InventoryMenu implements InventoryProvider{
 	
 	@Override
 	public void init(Player player, InventoryContents contents) {
-		contents.fillBorders(ClickableItem.empty(new ItemStack(Material.BLACK_STAINED_GLASS_PANE)));
-		
-		contents.set(1, 2, ClickableItem.empty(InventoryTools.createPageButton(Material.ITEM_FRAME,"§a資料顯示","看看就好")));
-		contents.set(2, 8, ClickableItem.of(InventoryTools.createPageButton(Material.BARRIER,"§a" + DataBase.language.Inventory.close),
-                e -> InventoryMenu.INVENTORY.close(player)));
+//		contents.fillBorders(ClickableItem.empty(new ItemStack(Material.BLACK_STAINED_GLASS_PANE)));
+//		
+//		contents.set(1, 2, ClickableItem.empty(InventoryTools.createPageButton(Material.ITEM_FRAME,"§a資料顯示","看看就好")));
+//		contents.set(2, 8, ClickableItem.of(InventoryTools.createPageButton(Material.BARRIER,"§a" + DataBase.language.Inventory.close),
+//                e -> InventoryMenu.INVENTORY.close(player)));
+		for(InventoryItems entry : DataBase.fileInventorymenu.getInventoryItems()) {
+			contents.set(entry.gety(), entry.getx(), ClickableItem.empty(entry.getResultItem()));
+		}
 	}
 
 	@Override
 	public void update(Player player, InventoryContents contents) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

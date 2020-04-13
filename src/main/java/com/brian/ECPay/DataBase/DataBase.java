@@ -10,11 +10,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import org.bukkit.plugin.Plugin;
+
+import com.brian.ECPay.FileIO.FileInventorymenu;
 
 public class DataBase {
 	
@@ -30,11 +33,12 @@ public class DataBase {
 	 */
 	public static String pluginMainDir = "./plugins/MobDrop/";
 	
-	//指令目錄
+	/**
+	 * 指令列表
+	 */
 	private static List<String> Commands = null;
 	
-	//公開顯示訊息
-	//public static Config Config;
+	public static FileInventorymenu fileInventorymenu = new FileInventorymenu();
 	
 	/**
 	 * 顯示訊息
@@ -45,6 +49,26 @@ public class DataBase {
 	{
 		System.out.print("[ECPay] " + msg);
 	}
+	
+	/**
+	 * Minecraft 16 種顏色
+	 */
+	public static List<String> Color = new ArrayList<String>(Arrays.asList(   "white",
+																		      "orange",
+																		      "magenta",
+																		      "light_blue",
+																		      "yellow",
+																		      "lime",
+																		      "pink",
+																		      "gray",
+																		      "light_gray",
+																		      "cyan",
+																		      "puple",
+																		      "blue",
+																		      "brown",
+																		      "green",
+																		      "red",
+																		      "black"));
 	
 	/**
 	 * 抓取指令列表(/ecpay <列表資料>)
