@@ -139,7 +139,10 @@ public class Items implements IItems{
 	private ItemStack getplayerhead(){
 		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
-        skullMeta.setDisplayName(SKULL_Player);
+        if (UseCustomName)
+        	skullMeta.setDisplayName(ItemName);
+        else
+        	skullMeta.setDisplayName(SKULL_Player);
         skullMeta.setOwningPlayer(ECPay.plugin.getServer().getOfflinePlayer(SKULL_Player));
         skull.setItemMeta(skullMeta);
 		return skull;
@@ -169,8 +172,10 @@ public class Items implements IItems{
         {
             error.printStackTrace();
         }
-        
-        headMeta.setDisplayName("test");
+        if (UseCustomName)
+        	headMeta.setDisplayName(ItemName);
+        else
+        	headMeta.setDisplayName("CUSTOM_SKULL");
         
         head.setItemMeta(headMeta);
         return head;
