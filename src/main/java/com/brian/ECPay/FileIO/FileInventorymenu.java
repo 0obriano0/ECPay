@@ -36,8 +36,8 @@ public class FileInventorymenu extends FileIO{
 	    	String ItemName = "";
 	    	String ItemStack = "";
 	    	
-	    	if(data.contains(getItemsURL_full + ".x")) x = data.getInt(getItemsURL_full + ".x");
-	    	if(data.contains(getItemsURL_full + ".y")) y = data.getInt(getItemsURL_full + ".y");
+	    	if(data.contains(getItemsURL_full + ".x")) x = data.getInt(getItemsURL_full + ".x")-1;
+	    	if(data.contains(getItemsURL_full + ".y")) y = data.getInt(getItemsURL_full + ".y")-1;
 	    	if(data.contains(getItemsURL_full + ".ItemStack")) ItemStack = data.getString(getItemsURL_full + ".ItemStack").toUpperCase();
 	    	if(data.contains(getItemsURL_full + ".ItemName")) ItemName = data.getString(getItemsURL_full + ".ItemName");
 	    	InventoryItems inventoryItem = null;
