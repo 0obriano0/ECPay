@@ -26,16 +26,16 @@ public class ECPaySystem {
 	/**
 	 * createCVSPaymentNO
 	 * 創建一個超商代碼
+	 * @param TradeNo 商品序號
 	 * @param UserName (minecraft username)使用者名稱
 	 * @param TotalAmount 總金額
 	 * @param ItemName 物品名稱
 	 * @param TradeDesc 交易描述
 	 */
-	public static void createCVSPaymentNO(String UserName,String TotalAmount,String ItemName,String TradeDesc){
+	public static void createCVSPaymentNO(String TradeNo,String UserName,String TotalAmount,String ItemName,String TradeDesc){
 		AioCheckOutCVS obj = new AioCheckOutCVS();
 		//InvoiceObj invoice = new InvoiceObj();
-		UUID uid = UUID.randomUUID();
-		obj.setMerchantTradeNo(uid.toString().replaceAll("-", "").substring(0, 20));
+		obj.setMerchantTradeNo(TradeNo);
 		Date date_now = new Date();
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		obj.setMerchantTradeDate(sdFormat.format(date_now));

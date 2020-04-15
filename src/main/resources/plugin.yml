@@ -27,3 +27,4 @@ permissions:
          ECPay.admin: true
          ECPay.admin.test: true
          ECPay.admin.reload: true
+         ECPay.admin.mysql: true

@@ -14,8 +14,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.brian.ECPay.webHandler.ResponseHandler;
+import com.brian.library.MySQL;
 import com.brian.ECPay.Command.IECPayCommand;
 import com.brian.ECPay.DataBase.DataBase;
+import com.brian.ECPay.DataBase.MySQL.MySQLBase;
 
 import example.ExampleAllInOne;
 
@@ -35,6 +37,10 @@ public class ECPay extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
         
+        DataBase.mysql = new MySQL(plugin.getConfig().getString("MySQL.user"),plugin.getConfig().getString("MySQL.pass"),plugin.getConfig().getString("MySQL.DB_URL"),plugin.getConfig().getString("MySQL.db"));
+        if(!DataBase.mysql.SelectDataBase()) {
+        	MySQLBase.runDefaultMySQL();
+        }
         DataBase.fileInventorymenu.reloadFile();
         
         File payment_confFile = new File(this.getDataFolder(), "payment_conf.xml");
@@ -48,6 +54,7 @@ public class ECPay extends JavaPlugin {
     @Override
     public void onDisable() {
     	closeWebServer();
+    	DataBase.mysql.close();
     }
     
     @Override
@@ -146,16 +153,6 @@ public class ECPay extends JavaPlugin {
     }
     
     /**
-     * 重新讀取資料
-     */
-    public static void reload() {
-    	closeWebServer();
-    	plugin.reloadConfig();
-    	openWebServer();
-    	DataBase.fileInventorymenu.reloadFile();
-    }
-    
-    /**
 	  * 開啟接收綠界科技的伺服器端
 	 * @return 伺服器資料
 	 */
@@ -180,6 +177,21 @@ public class ECPay extends JavaPlugin {
             }
         }.runTaskAsynchronously(plugin);
     	return webserver;
+    }
+    
+    /**
+     * 重新讀取資料
+     */
+    public static void reload() {
+    	DataBase.mysql.close();
+    	closeWebServer();
+    	plugin.reloadConfig();
+    	openWebServer();
+    	DataBase.fileInventorymenu.reloadFile();
+    	DataBase.mysql = new MySQL(plugin.getConfig().getString("MySQL.user"),plugin.getConfig().getString("MySQL.pass"),plugin.getConfig().getString("MySQL.DB_URL"),plugin.getConfig().getString("MySQL.db"));
+    	if(!DataBase.mysql.SelectDataBase()) {
+    		MySQLBase.runDefaultMySQL();
+        }
     }
     
     /**

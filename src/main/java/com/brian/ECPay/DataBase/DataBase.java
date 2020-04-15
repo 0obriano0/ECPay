@@ -17,7 +17,9 @@ import java.util.List;
 
 import org.bukkit.plugin.Plugin;
 
+import com.brian.ECPay.ECPay;
 import com.brian.ECPay.FileIO.FileInventorymenu;
+import com.brian.library.MySQL;
 
 public class DataBase {
 	
@@ -37,8 +39,12 @@ public class DataBase {
 	 * 指令列表
 	 */
 	private static List<String> Commands = null;
-	
+	/**
+	 * InventoryGUI 介面設定
+	 */
 	public static FileInventorymenu fileInventorymenu = new FileInventorymenu();
+	
+	public static MySQL mysql;
 	
 	/**
 	 * 顯示訊息

@@ -1,2 +1,7 @@
 ServerIP: 111.250.165.58
 port: 5000
+MySQL:
+   user: user
+   pass: password
+   DB_URL: db_url
+   db: null
