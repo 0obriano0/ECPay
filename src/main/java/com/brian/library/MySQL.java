@@ -187,7 +187,7 @@ public class MySQL {
 	 * @param PRIMARY_key_Type
 	 * @param table
 	 */
-	public void CreateTable(String PRIMARY_KEY,String PRIMARY_key_Type,List<String> table) {
+	public void CreateTable(String PRIMARY_KEY,String PRIMARY_key_Type,String tableName,List<String> table) {
 		Statement stmt = null;
 		if(conn==null) open();
 	   
@@ -199,7 +199,7 @@ public class MySQL {
 			String sql = "use " + db;
 			stmt.executeUpdate(sql);
 			
-			sql = "CREATE TABLE REGISTRATION (" + PRIMARY_KEY + " " + PRIMARY_key_Type + " not NULL, ";
+			sql = "CREATE TABLE " + tableName + " (" + PRIMARY_KEY + " " + PRIMARY_key_Type + " not NULL, ";
 			for(String value : table) sql = sql + value + ", ";
 			sql = sql + "PRIMARY KEY ( " + PRIMARY_KEY +" ))";
 			

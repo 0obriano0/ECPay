@@ -12,10 +12,11 @@ public class MySQLBase {
 	
 	public static void runDefaultMySQL(){
 		DataBase.mysql.CreateDataBase(ECPay.plugin.getConfig().getString("MySQL.db"));
-		DataBase.mysql.CreateTable("TradeNo", "INTEGER", new ArrayList<String>(Arrays.asList("UserName VARCHAR(255)",
-																					"TotalAmount INTEGER",
-																					"ItemName VARCHAR(255)",
-																					"TradeDesc VARCHAR(255)",
-																					"PaySuccess TINYINT(1)")));
+		DataBase.mysql.CreateTable("TradeNo", "INTEGER","Payinfo",
+				new ArrayList<String>(Arrays.asList("UserName VARCHAR(255)",
+													"TotalAmount INTEGER",
+													"ItemName VARCHAR(255)",
+													"TradeDesc VARCHAR(255)",
+													"PaySuccess TINYINT(1)")));
 	}
 }
