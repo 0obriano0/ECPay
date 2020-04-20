@@ -158,11 +158,11 @@ public class MySQL {
 	   
 		try{
 			//Execute a query
-			System.out.println("Deleting database...");
+			System.out.println("Select database[ " + db + " ]...");
 			stmt = conn.createStatement();
 			String sql = "use " + db;
 			System.out.println("SelectDataBase = " + stmt.executeUpdate(sql));
-			System.out.println("Database deleted successfully...");
+			System.out.println("Database[ " + db + " ]Select successfully...");
 		}catch(SQLSyntaxErrorException mse) {
 			return false;
 		}catch(SQLException se){
