@@ -18,6 +18,7 @@ import com.brian.library.MySQL;
 import com.brian.ECPay.Command.IECPayCommand;
 import com.brian.ECPay.DataBase.DataBase;
 import com.brian.ECPay.DataBase.MySQL.MySQLBase;
+import com.brian.ECPay.ECPayTools.ECPaySystem;
 
 import example.ExampleAllInOne;
 
@@ -36,6 +37,8 @@ public class ECPay extends JavaPlugin {
         
         saveDefaultConfig();
         reloadConfig();
+
+        DataBase.ecpaySystem = new ECPaySystem("");
         
         DataBase.mysql = new MySQL(plugin.getConfig().getString("MySQL.user"),plugin.getConfig().getString("MySQL.pass"),plugin.getConfig().getString("MySQL.DB_URL"),plugin.getConfig().getString("MySQL.db"));
         if(!DataBase.mysql.SelectDataBase()) {

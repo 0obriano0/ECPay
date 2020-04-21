@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.bukkit.plugin.Plugin;
 
-import com.brian.ECPay.ECPay;
+import com.brian.ECPay.ECPayTools.ECPaySystem;
 import com.brian.ECPay.FileIO.FileInventorymenu;
 import com.brian.library.MySQL;
 
@@ -44,6 +44,14 @@ public class DataBase {
 	 */
 	public static FileInventorymenu fileInventorymenu = new FileInventorymenu();
 	
+	/**
+	 * 交付系統
+	 */
+	public static ECPaySystem ecpaySystem;
+	
+	/**
+	 * 資料庫資料
+	 */
 	public static MySQL mysql;
 	
 	/**

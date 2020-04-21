@@ -3,9 +3,10 @@ package com.brian.ECPay.webHandler;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
+import com.brian.ECPay.DataBase.DataBase;
+
 import ecpay.payment.integration.domain.CVSOrBARCODEClientRequestObj;
 import ecpay.payment.integration.domain.CVSOrBARCODEPaymentInfoURLObj;
-import ecpay.payment.integration.domain.CVSOrBARCODERequestObj;
 import example.ExampleAllInOne;
 
 import javax.servlet.ServletException;
@@ -31,13 +32,13 @@ public class ResponseHandler extends AbstractHandler {
         PrintWriter writer = response.getWriter();
     	if(s.equals("/PaymentInfoURL")) {
     		System.out.println("取得回饋，拿取交易代碼(PaymentInfoURL)");
-    		CVSOrBARCODEPaymentInfoURLObj obj = (CVSOrBARCODEPaymentInfoURLObj) ExampleAllInOne.all.aioCheckOutFeedback(httpServletRequest);
-        	System.out.println("交易代碼: " + obj.getPaymentNo());
+    		CVSOrBARCODEPaymentInfoURLObj obj = (CVSOrBARCODEPaymentInfoURLObj) DataBase.ecpaySystem.getAll().aioCheckOutFeedback(httpServletRequest);
+    		System.out.println("交易代碼: " + obj.getPaymentNo());
     	}else if(s.equals("/ReturnURL")){
     		System.out.println("取得回饋，繳費完成");
     	}else if(s.equals("/ClientRedirectURL")) {
     		System.out.println("取得回饋，拿取交易代碼(/ClientRedirectUR)");
-    		CVSOrBARCODEClientRequestObj obj = (CVSOrBARCODEClientRequestObj) ExampleAllInOne.all.aioCheckOutFeedback(httpServletRequest);
+    		CVSOrBARCODEClientRequestObj obj = (CVSOrBARCODEClientRequestObj) DataBase.ecpaySystem.getAll().aioCheckOutFeedback(httpServletRequest);
         	System.out.println("交易代碼: " + obj.getPaymentNo());
     	}else {
     		System.out.println("接收到莫名的資訊");

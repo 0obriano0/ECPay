@@ -233,11 +233,11 @@ public class ExampleAllInOne {
 		String httpValue = EcpayFunction.genHttpValue(obj, CheckMacValue);
 		//System.out.println("\n\n\nCreate httpValue = " + httpValue + "\n\n\n");
 		String createServerOrderUrl = all.getAioCheckOutUrl();
-		//System.out.println("createServerOrderUrl = " + createServerOrderUrl + "\n");
+		System.out.println("createServerOrderUrl = " + createServerOrderUrl + "\n");
 		//httpPostRunnable h2 = new httpPostRunnable("https://payment-stage.ecpay.com.tw/SP/CreateTrade",httpValue,"UTF-8");
-		/*httpPostRunnable h2 = new httpPostRunnable(createServerOrderUrl,httpValue,"UTF-8");
+		httpPostRunnable h2 = new httpPostRunnable(createServerOrderUrl,httpValue,"UTF-8");
         Thread thr = new Thread(h2);
-        thr.start();*/
+        thr.start();
 		return form;
 	}
 	

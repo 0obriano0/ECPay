@@ -569,7 +569,7 @@ public class AllInOne extends AllInOneBase{
 					//method = obj.getClass().getMethod("set"+name, null);
 					method = obj.getClass().getMethod("set"+name, String.class);
 					method.invoke(obj, req.getParameter(name));
-					//System.out.println("資料讀取完成 => " + name + " = " + req.getParameter(name));
+					System.out.println("資料讀取完成 => " + name + " = " + req.getParameter(name));
 				} catch(Exception e){
 					e.printStackTrace();
 					throw new EcpayException(ErrorMessage.OBJ_MISSING_FIELD);

@@ -32,7 +32,7 @@ public class ECPaySystem {
 	 * @param ItemName 物品名稱
 	 * @param TradeDesc 交易描述
 	 */
-	public static void createCVSPaymentNO(String TradeNo,String UserName,String TotalAmount,String ItemName,String TradeDesc){
+	public void createCVSPaymentNO(String TradeNo,String UserName,String TotalAmount,String ItemName,String TradeDesc){
 		AioCheckOutCVS obj = new AioCheckOutCVS();
 		//InvoiceObj invoice = new InvoiceObj();
 		obj.setMerchantTradeNo(TradeNo);
@@ -48,17 +48,26 @@ public class ECPaySystem {
 		obj.setInvoiceMark("N");
 		obj.setPaymentInfoURL("http://" + ECPay.ServerIP + ":80/php_post_test.php");
 		obj.setChooseSubPayment("CVS");
+		obj.setCustomField1("交易文字一");
+		obj.setDesc_1("交易文字二");
+		
 		
 		//產生一個html 來執行
-		//String form = all.aioCheckOut(obj, null);
+		String form = getAll().aioCheckOut(obj, null);
 		//產生一個 CheckMacValue 檢查碼
-		String CheckMacValue =  all.createCheckMacValue(obj, null);
+		String CheckMacValue =  getAll().createCheckMacValue(obj, null);
 		//將資料轉換成httpValue 的資料方便 post
 		String httpValue = EcpayFunction.genHttpValue(obj, CheckMacValue);
-		//取得綠界科技的網址 即將資料post 給他
-		String createServerOrderUrl = all.getAioCheckOutUrl();
+		//取得綠界科技的網址 以及將資料post 給他
+		String createServerOrderUrl = getAll().getAioCheckOutUrl();
+		System.out.println("createServerOrderUrl = " + createServerOrderUrl + "\n");
 		httpPostRunnable h2 = new httpPostRunnable(createServerOrderUrl,httpValue,"UTF-8");
         Thread thr = new Thread(h2);
         thr.start();
+        
+	}
+
+	public AllInOne getAll() {
+		return all;
 	}
 }
