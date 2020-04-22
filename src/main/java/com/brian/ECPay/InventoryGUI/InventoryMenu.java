@@ -1,4 +1,4 @@
-﻿package com.brian.ECPay.InventoryGUI;
+package com.brian.ECPay.InventoryGUI;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

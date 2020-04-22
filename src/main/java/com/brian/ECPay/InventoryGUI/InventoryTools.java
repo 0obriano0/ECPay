@@ -1,4 +1,4 @@
-﻿package com.brian.ECPay.InventoryGUI;
+package com.brian.ECPay.InventoryGUI;
 
 import java.util.ArrayList;
 import java.util.List;

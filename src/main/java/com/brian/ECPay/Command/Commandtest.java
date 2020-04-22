@@ -9,8 +9,6 @@ import org.bukkit.entity.Player;
 
 import com.brian.ECPay.DataBase.DataBase;
 
-import example.ExampleAllInOne;
-
 
 public class Commandtest extends ECPayCommand{
 

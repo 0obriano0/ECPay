@@ -1,4 +1,4 @@
-﻿package com.brian.ECPay.DataBase;
+package com.brian.ECPay.DataBase;
 
 import com.brian.ECPay.DataBase.lang.InventoryGUI;
 import com.brian.ECPay.DataBase.lang.message;
@@ -20,9 +20,8 @@ public class language {
 	public message message = new message();
 	
 	/**
-	 * 設定 顯示title
+	 * 設定 顯示title ex. "[ECPay]"
 	 * @param Plugin_name 插件資訊
-	 * @info ex. "[ECPay]"
 	 */
 	public void setPlugin(String Plugin_name){
 		this.Plugin_name = Plugin_name;

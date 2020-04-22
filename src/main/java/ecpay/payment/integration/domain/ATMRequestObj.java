@@ -146,7 +146,7 @@ public class ATMRequestObj {
 	}
 	/**
 	 * 設定MerchantTradeNo 合作特店交易編號
-	 * @param MerchantTradeNo
+	 * @param merchantTradeNo
 	 */
 	public void setMerchantTradeNo(String merchantTradeNo) {
 		MerchantTradeNo = merchantTradeNo;
@@ -160,7 +160,7 @@ public class ATMRequestObj {
 	}
 	/**
 	 * 設定RtnCode 交易狀態
-	 * @param RtnCode
+	 * @param rtnCode
 	 */
 	public void setRtnCode(String rtnCode) {
 		RtnCode = rtnCode;
@@ -174,7 +174,7 @@ public class ATMRequestObj {
 	}
 	/**
 	 * 設定RtnMsg 交易訊息
-	 * @param RtnMsg
+	 * @param rtnMsg
 	 */
 	public void setRtnMsg(String rtnMsg) {
 		RtnMsg = rtnMsg;
@@ -188,7 +188,7 @@ public class ATMRequestObj {
 	}
 	/**
 	 * 設定TradeNo 綠界的交易編號
-	 * @param TradeNo
+	 * @param tradeNo
 	 */
 	public void setTradeNo(String tradeNo) {
 		TradeNo = tradeNo;
@@ -202,7 +202,7 @@ public class ATMRequestObj {
 	}
 	/**
 	 * 設定TradeAmt 交易金額
-	 * @param TradeAmt
+	 * @param tradeAmt
 	 */
 	public void setTradeAmt(String tradeAmt) {
 		TradeAmt = tradeAmt;
@@ -216,7 +216,7 @@ public class ATMRequestObj {
 	}
 	/**
 	 * 設定PaymentType 合作特店選擇的付款方式
-	 * @param PaymentType
+	 * @param paymentType
 	 */
 	public void setPaymentType(String paymentType) {
 		PaymentType = paymentType;
@@ -230,7 +230,7 @@ public class ATMRequestObj {
 	}
 	/**
 	 * 設定TradeDate 訂單成立時間
-	 * @param TradeDate
+	 * @param tradeDate
 	 */
 	public void setTradeDate(String tradeDate) {
 		TradeDate = tradeDate;
@@ -244,7 +244,7 @@ public class ATMRequestObj {
 	}
 	/**
 	 * 設定CheckMacValue 檢查碼
-	 * @param CheckMacValue
+	 * @param checkMacValue
 	 */
 	public void setCheckMacValue(String checkMacValue) {
 		CheckMacValue = checkMacValue;
@@ -258,7 +258,7 @@ public class ATMRequestObj {
 	}
 	/**
 	 * 設定BankCode 繳費銀行代碼
-	 * @param BankCode
+	 * @param bankCode
 	 */
 	public void setBankCode(String bankCode) {
 		BankCode = bankCode;
@@ -286,7 +286,7 @@ public class ATMRequestObj {
 	}
 	/**
 	 * 設定ExpireDate 繳費期限
-	 * @param ExpireDate
+	 * @param expireDate
 	 */
 	public void setExpireDate(String expireDate) {
 		ExpireDate = expireDate;

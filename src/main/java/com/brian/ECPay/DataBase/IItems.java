@@ -103,7 +103,7 @@ public interface IItems {
 	short getdurability();
 	/**
 	 * @param durability 耐久度
-	 * @throws ItemSettingfailException 
+	 * @throws ItemSettingfailException 物品設定錯誤
 	 */
 	void setdurability(short durability) throws ItemSettingfailException;
 	
@@ -112,7 +112,7 @@ public interface IItems {
 	 */
 	int getItem_Color();
 	/**
-	 * @param 顏色代碼
+	 * @param Item_Color 顏色代碼
 	 */
 	void setItem_Color(int Item_Color);
 	
@@ -130,7 +130,7 @@ public interface IItems {
 	 */
 	String getSKULL_Player();
 	/**
-	 * @param texture 玩家名稱(頭顱用)
+	 * @param SKULL_Player 玩家名稱(頭顱用)
 	 */
 	void setSKULL_Player(String SKULL_Player);
 	

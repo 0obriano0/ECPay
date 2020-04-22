@@ -1,4 +1,4 @@
-﻿package com.brian.ECPay.DataBase.lang;
+package com.brian.ECPay.DataBase.lang;
 
 import java.util.ArrayList;
 import java.util.List;

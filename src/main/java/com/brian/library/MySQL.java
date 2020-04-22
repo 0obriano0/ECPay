@@ -153,6 +153,7 @@ public class MySQL {
 	
 	/**
 	 * 選擇數據庫
+	 * @return 是否成
 	 */
 	public boolean SelectDataBase() {
 		Statement stmt = null;
@@ -189,9 +190,10 @@ public class MySQL {
 	
 	/**
 	 * 創建一個資料表
-	 * @param PRIMARY_KEY
-	 * @param PRIMARY_key_Type
-	 * @param table
+	 * @param PRIMARY_KEY 關鍵資料
+	 * @param PRIMARY_key_Type 關鍵資料型態
+	 * @param tableName 資料表名稱
+	 * @param table 其他資料
 	 */
 	public void CreateTable(String PRIMARY_KEY,String PRIMARY_key_Type,String tableName,List<String> table) {
 		Statement stmt = null;
@@ -230,7 +232,7 @@ public class MySQL {
 	 * 傳送查詢相關指令
 	 * db 使用內部設定好的
 	 * 如果要更改請使用 setdb("database")
-	 * @param command
+	 * @param command 指令
 	 * @return 回傳查詢資料(null 代表取得失敗)
 	 */
 	public ResultSet executeQuery(String command) {
@@ -270,7 +272,7 @@ public class MySQL {
 	 * 發送指令給 MySQL
 	 * db 使用內部設定好的
 	 * 如果要更改請使用 setdb("database")
-	 * @param command
+	 * @param command 指令
 	 * @return 回傳指令是否成功送出
 	 */
 	public boolean executeUpdate(String command) {
@@ -307,7 +309,7 @@ public class MySQL {
 	
 	/**
 	 * 更改目前的資料表
-	 * @param db
+	 * @param db 資料表
 	 * @return 檢查有沒有更改成功
 	 */
 	public boolean setdb(String db) {

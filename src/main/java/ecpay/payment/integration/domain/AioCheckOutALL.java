@@ -288,133 +288,133 @@ public class AioCheckOutALL {
 	}
 	/**
 	 * 設定MerchantID 合作特店編號(由綠界提供)
-	 * @param merchantID
+	 * @param merchantID 合作特店編號(由綠界提供)
 	 */
 	public void setMerchantID(String merchantID) {
 		MerchantID = merchantID;
 	}
 	/**
 	 * 取得MerchantTradeNo 合作特店交易編號(由合作特店提供)，該交易編號不可重複
-	 * @return MerchantTradeNo
+	 * @return MerchantTradeNo 合作特店交易編號(由合作特店提供)
 	 */
 	public String getMerchantTradeNo() {
 		return MerchantTradeNo;
 	}
 	/**
 	 * 設定MerchantTradeNo 合作特店交易編號(由合作特店提供)，該交易編號不可重複
-	 * @param merchantTradeNo
+	 * @param merchantTradeNo 合作特店交易編號
 	 */
 	public void setMerchantTradeNo(String merchantTradeNo) {
 		MerchantTradeNo = merchantTradeNo;
 	}
 	/**
 	 * 取得MerchantTradeDate 合作特店交易時間
-	 * @return MerchantTradeDate
+	 * @return MerchantTradeDate 合作特店交易時間
 	 */
 	public String getMerchantTradeDate() {
 		return MerchantTradeDate;
 	}
 	/**
 	 * 設定MerchantTradeDate 合作特店交易時間，請以 yyyy/MM/dd HH:mm:ss格式帶入
-	 * @param merchantTradeDate
+	 * @param merchantTradeDate 合作特店交易時間
 	 */
 	public void setMerchantTradeDate(String merchantTradeDate) {
 		MerchantTradeDate = merchantTradeDate;
 	}
 	/**
 	 * 取得PaymentType 交易類型
-	 * @return PaymentType
+	 * @return PaymentType 交易類型
 	 */
 	public String getPaymentType() {
 		return PaymentType;
 	}
 	/**
 	 * 設定PaymentType 會員選擇的付款方式
-	 * @param paymentType
+	 * @param paymentType 會員選擇的付款方式
 	 */
 //	public void setPaymentType(String paymentType) {
 //		PaymentType = paymentType;
 //	}
 	/**
 	 * 取得TotalAmount 交易金額
-	 * @return TotalAmount
+	 * @return TotalAmount 交易金額
 	 */
 	public String getTotalAmount() {
 		return TotalAmount;
 	}
 	/**
 	 * 設定TotalAmount 交易金額
-	 * @param totalAmount
+	 * @param totalAmount 交易金額
 	 */
 	public void setTotalAmount(String totalAmount) {
 		TotalAmount = totalAmount;
 	}
 	/**
 	 * 取得TradeDesc 交易描述
-	 * @return TradeDesc
+	 * @return TradeDesc 交易描述
 	 */
 	public String getTradeDesc() {
 		return TradeDesc;
 	}
 	/**
 	 * 設定TradeDesc 交易描述
-	 * @param tradeDesc
+	 * @param tradeDesc 交易描述
 	 */
 	public void setTradeDesc(String tradeDesc) {
 		TradeDesc = tradeDesc;
 	}
 	/**
 	 * 取得ItemName 商品名稱
-	 * @return ItemName
+	 * @return ItemName 商品名稱
 	 */
 	public String getItemName() {
 		return ItemName;
 	}
 	/**
 	 * 設定ItemName 商品名稱
-	 * @param itemName
+	 * @param itemName 商品名稱
 	 */
 	public void setItemName(String itemName) {
 		ItemName = itemName;
 	}
 	/**
 	 * 取得ReturnURL 付款完成通知回傳網址
-	 * @return ReturnURL
+	 * @return ReturnURL 付款完成通知回傳網址
 	 */
 	public String getReturnURL() {
 		return ReturnURL;
 	}
 	/**
 	 * 設定ReturnURL 付款完成通知回傳網址
-	 * @param returnURL
+	 * @param returnURL 付款完成通知回傳網址
 	 */
 	public void setReturnURL(String returnURL) {
 		ReturnURL = returnURL;
 	}
 	/**
 	 * 取得ChoosePayment 選擇預設付款方式
-	 * @return ChoosePayment
+	 * @return ChoosePayment 選擇預設付款方式
 	 */
 	public String getChoosePayment() {
 		return ChoosePayment;
 	}
 	/**
 	 * 設定ChoosePayment 選擇預設付款方式
-	 * @param choosePayment
+	 * @param choosePayment 選擇預設付款方式
 	 */
 //	public void setChoosePayment(String choosePayment) {
 //		ChoosePayment = choosePayment;
 //	}
 	/**
 	 * 取得ClientBackURL Client端返回合作特店系統的按鈕連結
-	 * @return ClientBackURL
+	 * @return ClientBackURL Client端返回合作特店系統的按鈕連結
 	 */
 	public String getClientBackURL() {
 		return ClientBackURL;
 	}
 	/**
 	 * 設定ClientBackURL Client端返回合作特店系統的按鈕連結
-	 * @param clientBackURL
+	 * @param clientBackURL 端返回合作特店系統的按鈕連結
 	 */
 	public void setClientBackURL(String clientBackURL) {
 		ClientBackURL = clientBackURL;
@@ -428,7 +428,7 @@ public class AioCheckOutALL {
 	}
 	/**
 	 * 設定 ItemURL 商品銷售網址
-	 * @param itemURL
+	 * @param itemURL 商品銷售網址
 	 */
 	public void setItemURL(String itemURL) {
 		ItemURL = itemURL;
@@ -442,7 +442,7 @@ public class AioCheckOutALL {
 	}
 	/**
 	 * 設定Remark 備註欄位
-	 * @param remark
+	 * @param remark 備註欄位
 	 */
 	public void setRemark(String remark) {
 		Remark = remark;
@@ -456,7 +456,7 @@ public class AioCheckOutALL {
 	}
 	/**
 	 * 設定ChooseSubPayment 選擇預設付款子項目
-	 * @param chooseSubPayment
+	 * @param chooseSubPayment 選擇預設付款子項目
 	 */
 	public void setChooseSubPayment(String chooseSubPayment) {
 		ChooseSubPayment = chooseSubPayment;
@@ -470,7 +470,7 @@ public class AioCheckOutALL {
 	}
 	/**
 	 * 設定OrderResultURL Client端回傳付款結果網址
-	 * @param orderResultURL
+	 * @param orderResultURL Client端回傳付款結果網址
 	 */
 	public void setOrderResultURL(String orderResultURL) {
 		OrderResultURL = orderResultURL;
@@ -484,7 +484,7 @@ public class AioCheckOutALL {
 	}
 	/**
 	 * 設定NeedExtraPaidInfo 是否需要額外的付款資訊 
-	 * @param needExtraPaidInfo
+	 * @param needExtraPaidInfo 額外的付款資訊 
 	 */
 	public void setNeedExtraPaidInfo(String needExtraPaidInfo) {
 		NeedExtraPaidInfo = needExtraPaidInfo;
@@ -498,7 +498,7 @@ public class AioCheckOutALL {
 	}
 	/**
 	 * 設定DeviceSource 裝置來源
-	 * @param deviceSource
+	 * @param deviceSource 裝置來源
 	 */
 	public void setDeviceSource(String deviceSource) {
 		DeviceSource = deviceSource;

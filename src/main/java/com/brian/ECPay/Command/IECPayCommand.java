@@ -5,7 +5,11 @@ import java.util.List;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
+/**
+ * ECPay 基本指令系統宣告
+ * @author brian
+ *
+ */
 public interface IECPayCommand  {
 	/**
 	 *  負責回傳插件名稱
@@ -15,37 +19,37 @@ public interface IECPayCommand  {
 	
 	/**
 	 * 拿取help指令說明
-	 * @return
+	 * @return 指令說明
 	 */
 	String getHelp();
 	
 	/**
 	 * 拿取權限列表
-	 * @return
+	 * @return 權限列表
 	 */
 	List<String> getPermissions();
 	
 	/**
 	 * 檢查是否有權限
 	 * @param sender 輸入者(黑盒子)
-	 * @return
+	 * @return 是否有權限
 	 */
 	boolean hasPermission(CommandSender sender);
 	
 	/**
 	 * 檢查是否有權限
-	 * @param sender 輸入者(黑盒子 or 玩家)
-	 * @return
+	 * @param player 輸入者(黑盒子 or 玩家)
+	 * @return 是否有權限
 	 */
 	boolean hasPermission(Player player);
 
 	/**
 	 *  處理從cmd傳來的指令用
-	 * @param player 輸入者(玩家)
+	 * @param sender 輸入者(玩家)
 	 * @param commandLabel 指令Title
 	 * @param command 使用指令的使用者相關資訊
 	 * @param args 指令後半部分
-	 * @throws Exception
+	 * @throws Exception 執行指令錯誤時回報錯誤訊息
 	 */
     void run(CommandSender sender, String commandLabel, Command command, String[] args) throws Exception;
     
@@ -55,7 +59,7 @@ public interface IECPayCommand  {
 	 * @param commandLabel 指令Title
 	 * @param command 使用指令的使用者相關資訊
 	 * @param args 指令後半部分
-	 * @throws Exception
+	 * @throws Exception 執行指令錯誤時回報錯誤訊息
 	 */
     void run(Player player, String commandLabel, Command command, String[] args) throws Exception;
     
@@ -65,7 +69,7 @@ public interface IECPayCommand  {
 	 * @param commandLabel 指令Title
 	 * @param command 使用指令的使用者相關資訊
 	 * @param args 指令後半部分
-	 * @throws Exception
+	 * @return 取得指令列表
 	 */
     List<String> tabComplete(CommandSender sender, String commandLabel, Command command, String[] args);
 
@@ -75,7 +79,7 @@ public interface IECPayCommand  {
 	 * @param commandLabel 指令Title
 	 * @param command 使用指令的使用者相關資訊
 	 * @param args 指令後半部分
-	 * @throws Exception
+	 * @return 取得指令列表
 	 */
     List<String> tabComplete(Player player, String commandLabel, Command command, String[] args);
 }

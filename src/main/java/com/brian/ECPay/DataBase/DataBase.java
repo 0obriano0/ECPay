@@ -1,4 +1,4 @@
-﻿package com.brian.ECPay.DataBase;
+package com.brian.ECPay.DataBase;
 
 import java.io.IOException;
 import java.net.URI;
@@ -21,17 +21,20 @@ import com.brian.ECPay.ECPayTools.ECPaySystem;
 import com.brian.ECPay.FileIO.FileInventorymenu;
 import com.brian.library.MySQL;
 
+/**
+ * 基本資料暫存區
+ * @author brian
+ *
+ */
 public class DataBase {
 	
 	/**
-	 * 語言包
-	 * @info 語言設定檔
+	 * 語言包 語言設定檔
 	 */
 	public static language language = new language();
 	
 	/**
-	 * 插件目錄
-	 * @info 插件附屬檔案的存放路徑
+	 * 插件目錄 插件附屬檔案的存放路徑
 	 */
 	public static String pluginMainDir = "./plugins/MobDrop/";
 	
@@ -55,9 +58,8 @@ public class DataBase {
 	public static MySQL mysql;
 	
 	/**
-	 * 顯示訊息
+	 * 顯示訊息 在cmd 裡顯示 "[ECPay] " + msg
 	 * @param msg 要顯示的文字
-	 * @info 在cmd 裡顯示 "[ECPay] " + msg
 	 */
 	public static void Print(String msg)
 	{
@@ -85,8 +87,9 @@ public class DataBase {
 																		      "black"));
 	
 	/**
-	 * 抓取指令列表(/ecpay <列表資料>)
-	 * @return
+	 * 抓取指令列表(/ecpay 列表資料)
+	 * @param plugin 系統資料
+	 * @return 列表資料
 	 */
 	public static List<String> getCommands(Plugin plugin){
 		if(Commands == null) {

@@ -1,4 +1,4 @@
-﻿package com.brian.ECPay.DataBase;
+package com.brian.ECPay.DataBase;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -18,7 +18,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-
 
 /*
 HIDE_ATTRIBUTES                   隱藏 NBT

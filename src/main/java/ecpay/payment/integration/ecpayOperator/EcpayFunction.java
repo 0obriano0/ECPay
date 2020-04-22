@@ -51,10 +51,10 @@ public class EcpayFunction {
 		
 	/**
 	 * 產生檢查碼
-	 * @param key
-	 * @param iv
-	 * @param obj
-	 * @return
+	 * @param key 綠界傳連金鑰1
+	 * @param iv 綠界傳連金鑰2
+	 * @param obj 要檢測的data
+	 * @return 回傳檢查碼
 	 */
 	public final static String genCheckMacValue(String key, String iv, Object obj){
 		Class<?> cls = obj.getClass();
@@ -81,11 +81,11 @@ public class EcpayFunction {
 	
 	/**
 	 * AES加密
-	 * @param HashKey
-	 * @param HashIV
-	 * @param plaintext
-	 * @return
-	 * @throws Exception
+	 * @param HashKey 綠界傳連金鑰1
+	 * @param HashIV 綠界傳連金鑰2
+	 * @param plaintext data
+	 * @return urlEncode
+	 * @throws Exception Exception
 	 */
 	public final static String AESEncode(String HashKey, String HashIV, String plaintext) throws Exception{
 		SecretKey key = new SecretKeySpec(HashKey.getBytes("UTF-8"), "AES");
@@ -129,10 +129,10 @@ public class EcpayFunction {
 	
 	/**
 	 * 產生檢查碼
-	 * @param key
-	 * @param iv
-	 * @param Hashtable<String, String> params
-	 * @return
+	 * @param key 綠界傳連金鑰1
+	 * @param iv 綠界傳連金鑰2
+	 * @param params data
+	 * @return 檢查碼
 	 */
 	public final static String genCheckMacValue(String key, String iv, Hashtable<String, String> params){
 		Set<String> keySet = params.keySet();
@@ -152,9 +152,9 @@ public class EcpayFunction {
 	
 	/**
 	 * 將物件的屬性與檢查碼組合成http的參數資料格式
-	 * @param obj
-	 * @param CheckMacValue
-	 * @return string
+	 * @param obj 要傳送的data
+	 * @param CheckMacValue 檢查碼
+	 * @return string http的參數資料
 	 */
 	public final static String genHttpValue(Object obj, String CheckMacValue){
 		Class<?> cls = obj.getClass();
@@ -177,8 +177,8 @@ public class EcpayFunction {
 	
 	/**
 	 * 將物件轉為Hashtable
-	 * @param obj
-	 * @return Hashtable
+	 * @param obj 各data
+	 * @return Hashtable 轉換
 	 */
 	public final static Hashtable<String, String>objToHashtable(Object obj){
 		Class<?> cls = obj.getClass();
@@ -206,8 +206,9 @@ public class EcpayFunction {
 	
 	/**
 	 * client http post的功能
-	 * @param url
-	 * @param urlParameters
+	 * @param url 要連接的路徑
+	 * @param urlParameters 要傳送的資料
+	 * @param encoding 編碼
 	 * @return response string
 	 */
 	public final static String httpPost(String url, String urlParameters, String encoding){
@@ -326,7 +327,7 @@ public class EcpayFunction {
 	
 	/**
 	 * 將資料做 urlEncode編碼
-	 * @param data
+	 * @param data 資料
 	 * @return url encoded string
 	 */
 	public static String urlEncode(String data){

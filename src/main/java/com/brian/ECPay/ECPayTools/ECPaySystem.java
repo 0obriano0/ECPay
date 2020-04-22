@@ -17,7 +17,7 @@ public class ECPaySystem {
 	/**
 	 * ECPaySystem
 	 * 參數帶入log4j.properties的路徑，若帶入空字串則預設不產生log
-	 * @param log4jPropertiesPath
+	 * @param log4jURL log4j.properties的路徑
 	 */
 	public ECPaySystem(String log4jURL) {
 		all = new AllInOne(log4jURL);
