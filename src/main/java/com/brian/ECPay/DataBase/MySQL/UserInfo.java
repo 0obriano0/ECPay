@@ -1,11 +1,13 @@
 package com.brian.ECPay.DataBase.MySQL;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserInfo {
-	private int MerchantTradeNo;	//我的編號
+	private long MerchantTradeNo;	//我的編號
 	private String UserName;		//玩家名稱
-	private int TradeNo;			//綠界編號
+	private long TradeNo;			//綠界編號
 	private int TradeAmount;		//消費金額
 	private String ItemName;		//物品名稱
 	private String PaymentType;		//付款類別
@@ -29,7 +31,7 @@ public class UserInfo {
 	 * @param customField1 說明
 	 * @param paySuccess 繳費成功與否
 	 */
-	public UserInfo(int merchantTradeNo, String userName, int tradeNo, int tradeAmount, String itemName,
+	public UserInfo(long merchantTradeNo, String userName, long tradeNo, int tradeAmount, String itemName,
 			String paymentType, String paymentNo, Timestamp tradeDate, Timestamp expireDate, String customField1,
 			boolean paySuccess) {
 		MerchantTradeNo = merchantTradeNo;
@@ -44,12 +46,26 @@ public class UserInfo {
 		CustomField1 = customField1;
 		PaySuccess = paySuccess;
 	}
-
+	
+	public UserInfo(UserInfoWaitPost uiwp,long tradeNo,String paymentNo,Timestamp tradeDate, Timestamp expireDate,boolean paySuccess) {
+		MerchantTradeNo = uiwp.getMerchantTradeNo();
+		UserName = uiwp.getUserName();
+		TradeNo = tradeNo;
+		TradeAmount = uiwp.getTradeAmount();
+		ItemName = uiwp.getItemName();
+		PaymentType = uiwp.getPaymentType();
+		PaymentNo = paymentNo;
+		TradeDate = tradeDate;
+		ExpireDate = expireDate;
+		CustomField1 = uiwp.getCustomField1();
+		PaySuccess = paySuccess;
+	}
+	
 	/**
 	 * 取得自產生的編號
 	 * @return 自產生的編號
 	 */
-	public int getMerchantTradeNo() {
+	public long getMerchantTradeNo() {
 		return MerchantTradeNo;
 	}
 	
@@ -65,7 +81,7 @@ public class UserInfo {
 	 * 取得綠界編號
 	 * @return 綠界編號
 	 */
-	public int getTradeNo() {
+	public long getTradeNo() {
 		return TradeNo;
 	}
 	
@@ -133,5 +149,23 @@ public class UserInfo {
 		return PaySuccess;
 	}
 	
-	
+	/**
+	 * 將資料轉成Map
+	 * @return Map資料
+	 */
+	public Map<String,String> getMap(){
+		Map<String,String> data = new HashMap<String,String>();
+		data.put("MerchantTradeNo",MerchantTradeNo + "");
+		data.put("UserName",UserName);
+		data.put("TradeNo",TradeNo + "");
+		data.put("TradeAmount",TradeAmount + "");
+		data.put("ItemName",ItemName);
+		data.put("PaymentType",PaymentType);
+		data.put("PaymentNo",PaymentNo);
+		data.put("TradeDate",TradeDate.toString());
+		data.put("ExpireDate",ExpireDate.toString());
+		data.put("CustomField1",CustomField1);
+		data.put("PaySuccess",PaySuccess? "1" : "0");
+		return data;
+	}
 }

@@ -2,6 +2,8 @@ package com.brian.library;
 
 import java.sql.*;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,15 +11,17 @@ import com.brian.ECPay.ECPay;
 
 public class MySQL {
 	// JDBC driver name and database URL
-	private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	private transient String DB_URL;
+	protected final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
+	protected transient String DB_URL;
 	
 	//  Database credentials
-	private transient String USER;
-	private transient String PASS;
-	private transient String db;
+	protected transient String USER;
+	protected transient String PASS;
+	protected transient String db;
    
-	private Connection conn = null;
+	protected Connection conn = null;
+	
+	protected final boolean showLog = true;
 	
 	/**
 	 * 分析DB_URL中的主連結
@@ -34,7 +38,7 @@ public class MySQL {
 		  
 		//將規則作用到字串上, 並進行符合規則的子串查找
 		m.find();
-		//ECPay.plugin.getLogger().info("找到得連結是" + m.group());
+		//log("找到得連結是" + m.group());
 		return m.group();
 	}
 	
@@ -64,7 +68,7 @@ public class MySQL {
 			Class.forName(JDBC_DRIVER);
 
 			//Open a connection
-			//ECPay.plugin.getLogger().info("Connecting to database...");
+			log("Connecting to database...");
 			this.conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		}catch(SQLException se){
 			//Handle errors for JDBC
@@ -103,11 +107,11 @@ public class MySQL {
 	   
 		try{
 			//Execute a query
-			ECPay.plugin.getLogger().info("Creating database...");
+			log("Creating database...");
 			stmt = conn.createStatement();
 			String sql = "CREATE DATABASE " + DataBaseName;
 			stmt.executeUpdate(sql);
-			ECPay.plugin.getLogger().info("Database created successfully...");
+			log("Database created successfully...");
 		}catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
@@ -133,11 +137,11 @@ public class MySQL {
 	   
 		try{
 			//Execute a query
-			ECPay.plugin.getLogger().info("Deleting database...");
+			log("Deleting database...");
 			stmt = conn.createStatement();
 			String sql = "DROP DATABASE " + DataBaseName;
 			stmt.executeUpdate(sql);
-			ECPay.plugin.getLogger().info("Database deleted successfully...");
+			log("Database deleted successfully...");
 		}catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
@@ -165,14 +169,14 @@ public class MySQL {
 		boolean success = false;
 		try{
 			//Execute a query
-			ECPay.plugin.getLogger().info("Select database[ " + db + " ]...");
+			log("Select database[ " + db + " ]...");
 			stmt = conn.createStatement();
 			String sql = "use " + db;
-			ECPay.plugin.getLogger().info("SelectDataBase = " + stmt.executeUpdate(sql));
-			ECPay.plugin.getLogger().info("Database[ " + db + " ]Select successfully...");
+			log("SelectDataBase = " + stmt.executeUpdate(sql));
+			log("Database[ " + db + " ]Select successfully...");
 			success = true;
 		}catch(SQLSyntaxErrorException mse) {
-			ECPay.plugin.getLogger().info("can not get DataBase [ " + db + " ]");
+			log("can not get DataBase [ " + db + " ]");
 		}catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
@@ -203,7 +207,7 @@ public class MySQL {
 	   
 		try{
 			//Execute a query
-			ECPay.plugin.getLogger().info("Creating table in given database...");
+			log("Creating table in given database...");
 			stmt = conn.createStatement();
 			
 			String sql = "use " + db;
@@ -214,7 +218,7 @@ public class MySQL {
 			sql = sql + "PRIMARY KEY ( " + PRIMARY_KEY +" ))";
 			
 			stmt.executeUpdate(sql);
-			ECPay.plugin.getLogger().info("Created table in given database successfully...");
+			log("Created table in given database successfully...");
 		}catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();
@@ -228,6 +232,53 @@ public class MySQL {
 				se2.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * 插入資料
+	 * db 使用內部設定好的
+	 * 如果要更改請使用 setdb("database")
+	 * @param tableName 資料表名稱
+	 * @param insertdata 要輸入資料
+	 * @return 是否成功
+	 */
+	public boolean Insert(String tableName,Map<String,String> insertdata) {
+		Statement stmt = null;
+		if(conn==null) open();
+	   
+		boolean success = false;
+		try{
+			stmt = conn.createStatement();
+			log("Insert DATA");
+			String sql = "use " + db;
+			stmt.executeUpdate(sql);
+			
+			String FieldName = "(";
+			String InsertValue = "(";
+			for(Entry<String, String> data : insertdata.entrySet()) {
+				FieldName += "`" + data.getKey() + "`" + ",";
+				InsertValue += "'" + data.getValue() + "'" + ",";
+			}
+			FieldName = FieldName.substring(0, FieldName.length()-1) + ")";
+			InsertValue = InsertValue.substring(0, InsertValue.length()-1) + ")";
+			log("Command = INSERT INTO " + tableName + " " + FieldName + " VALUES " + InsertValue);
+			stmt.executeUpdate("INSERT INTO " + tableName + " " + FieldName + " VALUES " + InsertValue);
+			log("Insert DATA successfully...");
+			success = true;
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				if(stmt!=null)
+				stmt.close();
+			}catch(SQLException se2){
+				se2.printStackTrace();
+			}
+		}
+		return success;
 	}
 	
 	/**
@@ -245,14 +296,14 @@ public class MySQL {
 		boolean success = false;
 		try{
 			//Execute a query
-			ECPay.plugin.getLogger().info("run command: " + command);
+			log("run command: " + command);
 			stmt = conn.createStatement();
 			
 			String sql = "use " + db;
 			stmt.executeUpdate(sql);
 			
 			rs = stmt.executeQuery(command);
-			ECPay.plugin.getLogger().info("command run successfully...");
+			log("command run successfully...");
 			success = true;
 		}catch(SQLException se){
 			//Handle errors for JDBC
@@ -284,14 +335,14 @@ public class MySQL {
 		boolean success = false;
 		try{
 			//Execute a query
-			ECPay.plugin.getLogger().info("run command: " + command);
+			log("run command: " + command);
 			stmt = conn.createStatement();
 			
 			String sql = "use " + db;
 			stmt.executeUpdate(sql);
 			
 			stmt.executeUpdate(command);
-			ECPay.plugin.getLogger().info("command run successfully...");
+			log("command run successfully...");
 			success = true;
 		}catch(SQLException se){
 			//Handle errors for JDBC
@@ -307,6 +358,14 @@ public class MySQL {
 			}
 		}
 		return success;
+	}
+	
+	/**
+	 * log顯示控制器
+	 * @param message 訊息
+	 */
+	protected void log(String message) {
+		if(showLog) ECPay.plugin.getLogger().info(message);
 	}
 	
 	/**

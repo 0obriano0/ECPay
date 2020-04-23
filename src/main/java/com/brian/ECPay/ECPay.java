@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,13 +15,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.brian.ECPay.webHandler.ResponseHandler;
-import com.brian.library.MySQL;
 import com.brian.ECPay.Command.IECPayCommand;
 import com.brian.ECPay.DataBase.DataBase;
 import com.brian.ECPay.DataBase.MySQL.MySQLBase;
 import com.brian.ECPay.ECPayTools.ECPaySystem;
+import com.brian.ECPay.Runnable.MySQLRannable;
 
-import example.ExampleAllInOne;
 
 public class ECPay extends JavaPlugin {
 	//private static final Logger LOGGER;
@@ -29,7 +29,8 @@ public class ECPay extends JavaPlugin {
 	public static String ServerIP;
 	public static org.eclipse.jetty.server.Server webserver;
 	public static BukkitTask webTask;
-	public ExampleAllInOne a;
+	
+	public static BukkitTask MySQLTask;
 	
     @Override
     public void onEnable() {
@@ -49,7 +50,8 @@ public class ECPay extends JavaPlugin {
         
         openWebServer();
         
-        this.getLogger().info("使用綠界科技 ");
+        openTask();
+        
     }
     
     @Override
@@ -154,6 +156,20 @@ public class ECPay extends JavaPlugin {
     }
     
     /**
+     * 重新讀取資料
+     */
+    public static void reload() {
+    	closeTask();
+    	DataBase.mysql.close();
+    	closeWebServer();
+    	plugin.reloadConfig();
+    	openWebServer();
+    	DataBase.fileInventorymenu.reloadFile();
+    	DataBase.mysql = new MySQLBase(plugin.getConfig().getString("MySQL.user"),plugin.getConfig().getString("MySQL.pass"),plugin.getConfig().getString("MySQL.DB_URL"),plugin.getConfig().getString("MySQL.db"));
+    	openTask();
+    }
+    
+    /**
 	  * 開啟接收綠界科技的伺服器端
 	 * @return 伺服器資料
 	 */
@@ -181,18 +197,6 @@ public class ECPay extends JavaPlugin {
     }
     
     /**
-     * 重新讀取資料
-     */
-    public static void reload() {
-    	DataBase.mysql.close();
-    	closeWebServer();
-    	plugin.reloadConfig();
-    	openWebServer();
-    	DataBase.fileInventorymenu.reloadFile();
-    	DataBase.mysql = new MySQLBase(plugin.getConfig().getString("MySQL.user"),plugin.getConfig().getString("MySQL.pass"),plugin.getConfig().getString("MySQL.DB_URL"),plugin.getConfig().getString("MySQL.db"));
-    }
-    
-    /**
 	 * 關閉接收綠界科技的伺服器端
      * @return
      */
@@ -208,4 +212,18 @@ public class ECPay extends JavaPlugin {
     	return true;
     }
     
+    /**
+     * 開啟相關計時器
+     */
+    private static void openTask() {
+    	MySQLRannable MySQLRannable = new MySQLRannable();
+    	MySQLTask = Bukkit.getScheduler().runTaskTimer(plugin, MySQLRannable, 30L, 10);
+    }
+    
+    /**
+     * 關閉相關計時器
+     */
+    private static void closeTask() {
+    	MySQLTask.cancel();
+    }
 }

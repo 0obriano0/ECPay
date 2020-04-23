@@ -1,7 +1,9 @@
 package com.brian.ECPay.DataBase.MySQL;
 
+import ecpay.payment.integration.domain.CVSOrBARCODEPaymentInfoURLObj;
+
 public class UserInfoWaitPost {
-	private int MerchantTradeNo;	//我的編號
+	private long MerchantTradeNo;	//我的編號
 	private String UserName;		//玩家名稱
 	private int TradeAmount;		//消費金額
 	private String ItemName;		//物品名稱
@@ -17,8 +19,7 @@ public class UserInfoWaitPost {
 	 * @param paymentType 付款類別
 	 * @param customField1 說明
 	 */
-	public UserInfoWaitPost(int merchantTradeNo, String userName, int tradeAmount, String itemName, String paymentType,
-			String paymentNo, String customField1) {
+	public UserInfoWaitPost(long merchantTradeNo, String userName, int tradeAmount, String itemName, String paymentType, String customField1) {
 		super();
 		MerchantTradeNo = merchantTradeNo;
 		UserName = userName;
@@ -27,12 +28,17 @@ public class UserInfoWaitPost {
 		PaymentType = paymentType;
 		CustomField1 = customField1;
 	}
-
+	
+	public boolean isSame(CVSOrBARCODEPaymentInfoURLObj obj) {
+		return obj.getMerchantTradeNo().equals(MerchantTradeNo+"") && obj.getTradeAmt().equals(TradeAmount+"") &&
+				obj.getPaymentType().equals(PaymentType) && obj.getCustomField1().equals(CustomField1);
+	}
+	
 	/**
 	 * 取得自產生的編號
 	 * @return 自產生的編號
 	 */
-	public int getMerchantTradeNo() {
+	public long getMerchantTradeNo() {
 		return MerchantTradeNo;
 	}
 	
