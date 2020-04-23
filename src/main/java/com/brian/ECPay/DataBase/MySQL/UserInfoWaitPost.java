@@ -29,6 +29,11 @@ public class UserInfoWaitPost {
 		CustomField1 = customField1;
 	}
 	
+	/**
+	 * 檢查回傳的資料友們有跟系統一樣
+	 * @param obj
+	 * @return true or false
+	 */
 	public boolean isSame(CVSOrBARCODEPaymentInfoURLObj obj) {
 		return obj.getMerchantTradeNo().equals(MerchantTradeNo+"") && obj.getTradeAmt().equals(TradeAmount+"") &&
 				obj.getPaymentType().equals(PaymentType) && obj.getCustomField1().equals(CustomField1);

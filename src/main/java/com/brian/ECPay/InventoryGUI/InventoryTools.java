@@ -18,6 +18,12 @@ public class InventoryTools {
 		this.INVENTORY = INVENTORY;
 	}
 	
+	/**
+	 * 前往要去的介面
+	 * @param name 要去的介面
+	 * @param player 玩家資訊
+	 * @param contents 介面控制中心
+	 */
 	public static void goInventory(String name ,Player player, InventoryContents contents) {
 		if(name.toLowerCase().equals("notpay")) {
 			InventoryNotpPay.getInventory(player.getName()).open(player);

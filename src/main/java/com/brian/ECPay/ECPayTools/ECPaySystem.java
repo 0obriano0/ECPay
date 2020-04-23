@@ -24,6 +24,15 @@ public class ECPaySystem {
 		all = new AllInOne(log4jURL);
 	}
 	
+	/**
+	 * createCVSPaymentNO
+	 * 創建一個超商代碼(自動產生訂單號碼)
+	 * @param UserName (minecraft username)使用者名稱
+	 * @param TotalAmount 總金額
+	 * @param ItemName 物品名稱
+	 * @param TradeDesc 交易描述
+	 * @param setCustomField 客製化欄位
+	 */
 	public void createCVSPaymentNO(String UserName,int TotalAmount,String ItemName,String TradeDesc ,String setCustomField){
 		createCVSPaymentNO(DataBase.mysql.getnextNewMerchantTradeNo(), UserName, TotalAmount, ItemName, TradeDesc,setCustomField);
 	}

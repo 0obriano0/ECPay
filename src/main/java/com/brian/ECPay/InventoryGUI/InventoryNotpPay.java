@@ -71,6 +71,11 @@ public class InventoryNotpPay extends InventoryTools implements InventoryProvide
 		
 	}
 	
+	/**
+	 * 顯示訂單資訊
+	 * @param payinfo 訂單資料
+	 * @return 將整理好的物品回傳
+	 */
 	public ItemStack getResultItemFormMysql(Map<String,String> payinfo) {
 		// 產生物品用
 		ItemStack ResultItem = new ItemStack(Material.PAPER);

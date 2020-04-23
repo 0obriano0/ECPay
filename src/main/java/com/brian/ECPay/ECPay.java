@@ -44,10 +44,11 @@ public class ECPay extends JavaPlugin {
 
         DataBase.ecpaySystem = new ECPaySystem("");
         
+        //連接資料庫
         DataBase.mysql = new MySQLBase(plugin.getConfig().getString("MySQL.user"),plugin.getConfig().getString("MySQL.pass"),plugin.getConfig().getString("MySQL.DB_URL"),plugin.getConfig().getString("MySQL.db"));
         
+        //讀檔區
         DataBase.fileInventorymenu.reloadFile();
-        
         File payment_confFile = new File(this.getDataFolder(), "payment_conf.xml");
         if (!payment_confFile.exists()) this.saveResource("payment_conf.xml", true);
         
@@ -59,6 +60,7 @@ public class ECPay extends JavaPlugin {
     
     @Override
     public void onDisable() {
+    	closeTask();
     	closeWebServer();
     	DataBase.mysql.close();
     }

@@ -46,7 +46,15 @@ public class UserInfo {
 		CustomField1 = customField1;
 		PaySuccess = paySuccess;
 	}
-	
+	/**
+	 * 初始設定
+	 * @param uiwp UserInfoWaitPost 資料
+	 * @param tradeNo 綠界編號
+	 * @param paymentNo 繳費代碼
+	 * @param tradeDate 產生日期
+	 * @param expireDate 截止日期
+	 * @param paySuccess 繳費成功與否
+	 */
 	public UserInfo(UserInfoWaitPost uiwp,long tradeNo,String paymentNo,Timestamp tradeDate, Timestamp expireDate,boolean paySuccess) {
 		MerchantTradeNo = uiwp.getMerchantTradeNo();
 		UserName = uiwp.getUserName();
