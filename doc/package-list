@@ -8,7 +8,6 @@ com.brian.ECPay.Exception
 com.brian.ECPay.FileIO
 com.brian.ECPay.InventoryGUI
 com.brian.ECPay.Runnable
-com.brian.ECPay.Timer
 com.brian.ECPay.webHandler
 com.brian.library
 ecpay.payment.integration
