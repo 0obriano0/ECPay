@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -26,6 +27,7 @@ public class ECPay extends JavaPlugin {
 	//private static final Logger LOGGER;
 	public static Plugin plugin;
 	public static int port;
+	public static Server server;
 	public static String ServerIP;
 	public static org.eclipse.jetty.server.Server webserver;
 	public static BukkitTask webTask;
@@ -35,6 +37,7 @@ public class ECPay extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
+        server = this.getServer();
         
         saveDefaultConfig();
         reloadConfig();
@@ -217,7 +220,7 @@ public class ECPay extends JavaPlugin {
      */
     private static void openTask() {
     	MySQLRannable MySQLRannable = new MySQLRannable();
-    	MySQLTask = Bukkit.getScheduler().runTaskTimer(plugin, MySQLRannable, 30L, 10);
+    	MySQLTask = Bukkit.getScheduler().runTaskTimer(plugin, MySQLRannable, 30L, 20);
     }
     
     /**

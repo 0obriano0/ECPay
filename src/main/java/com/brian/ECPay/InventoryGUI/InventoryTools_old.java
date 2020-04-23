@@ -4,26 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import fr.minuskube.inv.SmartInventory;
-import fr.minuskube.inv.content.InventoryContents;
-
-public class InventoryTools {
-	private final transient SmartInventory INVENTORY;
-	
-	InventoryTools(SmartInventory INVENTORY){
-		this.INVENTORY = INVENTORY;
-	}
-	
-	public static void goInventory(String name ,Player player, InventoryContents contents) {
-		if(name.toLowerCase().equals("notpay")) {
-			InventoryNotpPay.getInventory(player.getName()).open(player);
-		}
-	}
-	
+public class InventoryTools_old {
 	/**
 	 * 創建一個物品
 	 * @param MaterialType minecraft 提供的Material資料

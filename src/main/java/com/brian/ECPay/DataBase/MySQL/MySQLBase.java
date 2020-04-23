@@ -12,6 +12,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
+import org.bukkit.entity.Player;
+
 import com.brian.ECPay.ECPay;
 import com.brian.library.MySQL;
 
@@ -138,8 +140,17 @@ public class MySQLBase extends MySQL{
 		return NewMerchantTradeNo;
 	}
 	
+	/**
+	 * 將資料 push 至 MySQL
+	 * @return 有沒有成功
+	 */
 	public boolean pushQueue() {
 		UserInfo data = pushData.poll();
-		return this.Insert("payinfo", data.getMap());
+		boolean success = this.Insert("payinfo", data.getMap());
+		if(success) {
+			Player player = ECPay.server.getPlayer(data.getUserName());
+			player.sendMessage("資料成功創建 請打開系統查看");
+		}
+		return success;
 	}
 }

@@ -20,7 +20,6 @@ import org.bukkit.plugin.Plugin;
 import com.brian.ECPay.DataBase.MySQL.MySQLBase;
 import com.brian.ECPay.ECPayTools.ECPaySystem;
 import com.brian.ECPay.FileIO.FileInventorymenu;
-import com.brian.library.MySQL;
 
 /**
  * 基本資料暫存區

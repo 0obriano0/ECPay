@@ -6,7 +6,8 @@ public class InventoryItems extends Items{
 	
 	private transient int x;
 	private transient int y;
-	
+	private String Inventory = null;
+
 	/**
 	 * 創建基本資料
 	 * @param x 座標x
@@ -55,6 +56,14 @@ public class InventoryItems extends Items{
 	 */
 	public int gety() {
 		return y;
+	}
+	
+	public String getInventory() {
+		return Inventory;
+	}
+
+	public void setInventory(String inventory) {
+		this.Inventory = inventory;
 	}
 	
 }

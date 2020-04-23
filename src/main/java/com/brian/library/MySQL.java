@@ -1,6 +1,8 @@
 package com.brian.library;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -279,6 +281,61 @@ public class MySQL {
 			}
 		}
 		return success;
+	}
+	
+	/**
+	 * 傳送查詢相關指令 並轉換成 list map 模式
+	 * db 使用內部設定好的
+	 * 如果要更改請使用 setdb("database")
+	 * @param command 指令
+	 * @return 回傳查詢資料(null 代表取得失敗)
+	 */
+	public List<Map<String,String>> executeQuery_listMap(String command) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		if(conn==null) open();
+		
+		List<Map<String,String>> data_list = new ArrayList<Map<String,String>>();
+		
+		boolean success = false;
+		try{
+			//Execute a query
+			log("run command: " + command);
+			stmt = conn.createStatement();
+			
+			String sql = "use " + db;
+			stmt.executeUpdate(sql);
+			
+			rs = stmt.executeQuery(command);
+			
+			ResultSetMetaData metadata = rs.getMetaData();
+			int columnCount = metadata.getColumnCount();
+			
+			while(rs.next()){
+				Map<String,String> data_map = new HashMap<String,String>();
+				for(int loopnum1 = 1; loopnum1 <= columnCount;loopnum1++) {
+					String ColumnName = metadata.getColumnName(loopnum1);
+					data_map.put(ColumnName,rs.getString(ColumnName));
+				}
+				data_list.add(data_map);
+		    }
+			rs.close();
+			log("command run successfully...");
+			success = true;
+		}catch(SQLException se){
+			//Handle errors for JDBC
+			se.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			try{
+				if(stmt!=null)
+				stmt.close();
+			}catch(SQLException se2){
+				se2.printStackTrace();
+			}
+		}
+		return success ? data_list : null;
 	}
 	
 	/**

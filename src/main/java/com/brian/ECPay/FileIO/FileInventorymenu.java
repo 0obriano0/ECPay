@@ -67,6 +67,7 @@ public class FileInventorymenu extends FileIO{
 	    	if(data.contains(getItemsURL_full + ".Green")) inventoryItem.setGreen(data.getInt(getItemsURL_full + ".Green"));
 	    	if(data.contains(getItemsURL_full + ".Blue")) inventoryItem.setBlue(data.getInt(getItemsURL_full + ".Blue"));
 	    	if(data.contains(getItemsURL_full + ".UseCustomName")) inventoryItem.setUseCustomName(data.getBoolean(getItemsURL_full + ".UseCustomName"));
+	    	if(data.contains(getItemsURL_full + ".Inventory")) inventoryItem.setInventory(data.getString(getItemsURL_full + ".Inventory"));
 	    	
 	    	items.add(inventoryItem);
 	    	success++;

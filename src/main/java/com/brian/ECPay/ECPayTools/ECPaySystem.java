@@ -2,7 +2,6 @@ package com.brian.ECPay.ECPayTools;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 import com.brian.ECPay.ECPay;
 import com.brian.ECPay.DataBase.DataBase;

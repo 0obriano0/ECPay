@@ -49,7 +49,9 @@ public class Commandtest extends ECPayCommand{
 		if(args.length == 2)
 			if(args[1].equals("aaa"))
 				DataBase.mysql.executeQuery("INSERT INTO payinto VALUES (20042300002,'0obriano0','2004231129488717','300','test','CVS_CVS','LLL20114012292','2020-04-23 11:29:50','2020-04-24 11:29:50','文字交易一',0)");
-			else
+			else if(args[1].equals("aaaa"))
 				DataBase.ecpaySystem.createCVSPaymentNO(player.getName(), 300, "testItemName", "test","客製化欄位");
+			else
+				DataBase.mysql.executeQuery_listMap("SELECT * FROM `payinfo` WHERE UserName='0obriano0' AND PaySuccess = '0'");
 	}
 }
