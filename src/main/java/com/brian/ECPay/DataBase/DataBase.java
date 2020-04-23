@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.bukkit.plugin.Plugin;
 
+import com.brian.ECPay.DataBase.MySQL.MySQLBase;
 import com.brian.ECPay.ECPayTools.ECPaySystem;
 import com.brian.ECPay.FileIO.FileInventorymenu;
 import com.brian.library.MySQL;
@@ -55,7 +56,7 @@ public class DataBase {
 	/**
 	 * 資料庫資料
 	 */
-	public static MySQL mysql;
+	public static MySQLBase mysql;
 	
 	/**
 	 * 顯示訊息 在cmd 裡顯示 "[ECPay] " + msg

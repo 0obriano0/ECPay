@@ -40,10 +40,8 @@ public class ECPay extends JavaPlugin {
 
         DataBase.ecpaySystem = new ECPaySystem("");
         
-        DataBase.mysql = new MySQL(plugin.getConfig().getString("MySQL.user"),plugin.getConfig().getString("MySQL.pass"),plugin.getConfig().getString("MySQL.DB_URL"),plugin.getConfig().getString("MySQL.db"));
-        if(!DataBase.mysql.SelectDataBase()) {
-        	MySQLBase.runDefaultMySQL();
-        }
+        DataBase.mysql = new MySQLBase(plugin.getConfig().getString("MySQL.user"),plugin.getConfig().getString("MySQL.pass"),plugin.getConfig().getString("MySQL.DB_URL"),plugin.getConfig().getString("MySQL.db"));
+        
         DataBase.fileInventorymenu.reloadFile();
         
         File payment_confFile = new File(this.getDataFolder(), "payment_conf.xml");
@@ -191,10 +189,7 @@ public class ECPay extends JavaPlugin {
     	plugin.reloadConfig();
     	openWebServer();
     	DataBase.fileInventorymenu.reloadFile();
-    	DataBase.mysql = new MySQL(plugin.getConfig().getString("MySQL.user"),plugin.getConfig().getString("MySQL.pass"),plugin.getConfig().getString("MySQL.DB_URL"),plugin.getConfig().getString("MySQL.db"));
-    	if(!DataBase.mysql.SelectDataBase()) {
-    		MySQLBase.runDefaultMySQL();
-        }
+    	DataBase.mysql = new MySQLBase(plugin.getConfig().getString("MySQL.user"),plugin.getConfig().getString("MySQL.pass"),plugin.getConfig().getString("MySQL.DB_URL"),plugin.getConfig().getString("MySQL.db"));
     }
     
     /**

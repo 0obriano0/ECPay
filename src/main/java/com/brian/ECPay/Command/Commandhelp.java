@@ -14,7 +14,7 @@ public class Commandhelp extends ECPayCommand{
 
 	public Commandhelp() {
 		super(  "help",
-				"/help 取得指令說明",
+				"/ecpay help 取得指令說明",
 				new ArrayList<String>(Arrays.asList("ECPay.user.help")));
 	}
 	

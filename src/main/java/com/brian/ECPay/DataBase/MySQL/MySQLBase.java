@@ -2,19 +2,33 @@ package com.brian.ECPay.DataBase.MySQL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.brian.ECPay.ECPay;
-import com.brian.ECPay.DataBase.DataBase;
 import com.brian.ECPay.DataBase.Stack;
+import com.brian.library.MySQL;
 
-public class MySQLBase {
-	public Stack<UserInfo> data = new Stack<UserInfo>();
+public class MySQLBase extends MySQL{
 	
-	public static void runDefaultMySQL(){
-		DataBase.mysql.CreateDataBase(ECPay.plugin.getConfig().getString("MySQL.db"));
-		DataBase.mysql.CreateTable("MerchantTradeNo", "INTEGER","Payinfo",		//我的編號
+	public Stack<UserInfo> pushData = new Stack<UserInfo>();
+	
+	public Map<Integer,UserInfoWaitPost> UserInfoWaitPost = new HashMap<Integer,UserInfoWaitPost>();
+	
+	public MySQLBase(String USER, String PASS, String DB_URL, String db) {
+		super(USER, PASS, DB_URL, db);
+		if(!SelectDataBase()) {
+        	runDefaultMySQL();
+        }
+	}
+	/**
+	 * 初始設定資料庫基本結構
+	 */
+	public void runDefaultMySQL(){
+		this.CreateDataBase(ECPay.plugin.getConfig().getString("MySQL.db"));
+		this.CreateTable("MerchantTradeNo", "BIGINT","Payinfo",					//我的編號
 				new ArrayList<String>(Arrays.asList("UserName VARCHAR(255)",	//玩家名稱
-													"TradeNo INTEGER",			//綠界編號
+													"TradeNo BIGINT",			//綠界編號
 													"TradeAmount INTEGER",		//消費金額
 													"ItemName VARCHAR(255)",	//物品名稱
 													"PaymentType VARCHAR(255)",	//付款類別

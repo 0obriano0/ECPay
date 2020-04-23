@@ -2,39 +2,41 @@ package com.brian.library;
 
 import java.sql.*;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.brian.ECPay.ECPay;
 
 public class MySQL {
 	// JDBC driver name and database URL
 	private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	private String DB_URL;
+	private transient String DB_URL;
 	
 	//  Database credentials
-	private String USER;
-	private String PASS;
-	private String db;
+	private transient String USER;
+	private transient String PASS;
+	private transient String db;
    
 	private Connection conn = null;
 	
-//	/**
-//	 * 分析DB_URL中的主連結
-//	 * @return
-//	 */
-//	private String getMainDB_URL() {
-//		String reg = "jdbc:mysql://[^/].+/";
-//
-//		//將規則封裝成物件
-//		Pattern p = Pattern.compile(reg);
-//		
-//		//讓正則物件與要作用的字串相關聯
-//		Matcher m = p.matcher(DB_URL);
-//		  
-//		//將規則作用到字串上, 並進行符合規則的子串查找
-//		m.find();
-//		//ECPay.plugin.getLogger().info("找到得連結是" + m.group());
-//		return m.group();
-//	}
+	/**
+	 * 分析DB_URL中的主連結
+	 * @return
+	 */
+	protected String getMainDB_URL() {
+		String reg = "jdbc:mysql://[^/].+/";
+
+		//將規則封裝成物件
+		Pattern p = Pattern.compile(reg);
+		
+		//讓正則物件與要作用的字串相關聯
+		Matcher m = p.matcher(DB_URL);
+		  
+		//將規則作用到字串上, 並進行符合規則的子串查找
+		m.find();
+		//ECPay.plugin.getLogger().info("找到得連結是" + m.group());
+		return m.group();
+	}
 	
 	/**
 	 * MySQL 基本資料設定(會順便開啟連結)
@@ -288,7 +290,7 @@ public class MySQL {
 			String sql = "use " + db;
 			stmt.executeUpdate(sql);
 			
-			stmt.executeQuery(command);
+			stmt.executeUpdate(command);
 			ECPay.plugin.getLogger().info("command run successfully...");
 			success = true;
 		}catch(SQLException se){
@@ -326,5 +328,14 @@ public class MySQL {
 	 */
 	public String getdb() {
 		return this.db;
+	}
+	
+	/**
+	 * 以 Timestamp 資料型態取得 當前時間
+	 * @return 當前時間
+	 */
+	public static java.sql.Timestamp getCurrentTimeStamp() {
+		java.util.Date today = new java.util.Date();
+		return new java.sql.Timestamp(today.getTime());
 	}
 }

@@ -12,7 +12,7 @@ import com.brian.ECPay.ECPay;
 public class Commandreload extends ECPayCommand{
 	public Commandreload() {
 		super(  "reload",
-				"/reload 重新讀取資料",
+				"/ecpay reload 重新讀取資料",
 				new ArrayList<String>(Arrays.asList("ECPay.admin.reload")));
 	}
 	

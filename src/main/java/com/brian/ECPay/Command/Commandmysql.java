@@ -14,7 +14,7 @@ public class Commandmysql extends ECPayCommand{
 
 	public Commandmysql() {
 		super(  "mysql",
-				"/mysql 資料庫",
+				"/ecpay mysql 資料庫",
 				new ArrayList<String>(Arrays.asList("ECPay.admin.mysql")));
 	}
 	@Override
