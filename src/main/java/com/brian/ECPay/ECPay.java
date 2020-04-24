@@ -109,7 +109,7 @@ public class ECPay extends JavaPlugin {
     	return onTabComplete(sender,cmd,label,args,ECPay.class.getClassLoader(),"com.brian.ECPay.Command");
     }
     
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args,final ClassLoader classLoader, final String commandPath){
+    public List<String> onTabComplete(CommandSender sender, Command command, String commandLabel, String[] args,final ClassLoader classLoader, final String commandPath){
     	if(args.length == 1) {
     		List<String> show_commands = new ArrayList<String>();
     		for (String key : DataBase.getCommands(plugin)){
@@ -119,7 +119,23 @@ public class ECPay extends JavaPlugin {
     		}
     		return show_commands;
     	}else if(args.length > 1 && DataBase.getCommands(plugin).contains(args[0])){
-    		
+    		IECPayCommand cmd = getCommandClass(args[0],classLoader,commandPath);
+			if ((sender instanceof Player)) {    
+				if(!cmd.hasPermission(sender))
+					return Collections.emptyList();
+        		try {
+					return cmd.tabComplete((Player)sender, commandLabel, command, args);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        	}else {
+        		try {
+        			return cmd.tabComplete(sender, commandLabel, command, args);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+        	}
+            return Collections.emptyList();
     	}
     	return Collections.emptyList();
     }
