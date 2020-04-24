@@ -27,6 +27,8 @@ public class InventoryTools {
 	public static void goInventory(String name ,Player player, InventoryContents contents) {
 		if(name.toLowerCase().equals("notpay")) {
 			InventoryNotpPay.getInventory(player.getName()).open(player);
+		}else if(name.toLowerCase().equals("wait")) {
+			InventoryWait.getInventory(player.getName()).open(player);
 		}
 	}
 	

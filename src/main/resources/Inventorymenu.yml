@@ -49,8 +49,17 @@ items:
         ItemStack: CUSTOM_SKULL
         Texture: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjRiYTUzZjgzOThlOGNiMDBkNTgwNmY5NTM5M2UwYzAyZTE1MTJjMDBhN2I2NTc0ZTIwYjg4Y2Y0ODg2OWJkNSJ9fX0=
         ItemName: §b自定義的頭顱§f
-    未付款:
+    等待:
         x: 1
+        y: 2
+        ItemStack: BOOK
+        ItemName: §等待資訊§f
+        Lores:
+        - "&f查看等待創建的資料"
+        - "&f數量 : %wait%"
+        Inventory: wait
+    未付款:
+        x: 2
         y: 2
         ItemStack: BOOK
         ItemName: §2未付款資訊§f

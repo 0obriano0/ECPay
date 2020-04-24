@@ -105,7 +105,7 @@ public class MySQLBase extends MySQL{
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		String time = df.format(now);
 		Long TradeNo = Long.valueOf(time.substring(2,time.length()) + "00001");
-		return checkdata > TradeNo ? checkdata+1 : TradeNo;
+		return checkdata >= TradeNo ? checkdata+1 : TradeNo;
 	}
 	
 	/**

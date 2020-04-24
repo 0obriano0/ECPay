@@ -1,5 +1,8 @@
 package com.brian.ECPay.DataBase.MySQL;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ecpay.payment.integration.domain.CVSOrBARCODEPaymentInfoURLObj;
 
 public class UserInfoWaitPost {
@@ -9,7 +12,8 @@ public class UserInfoWaitPost {
 	private String ItemName;		//物品名稱
 	private String PaymentType;		//付款類別
 	private String CustomField1;	//說明
-	
+	private int count = 60;			//計數
+
 	/**
 	 * 初始設定
 	 * @param merchantTradeNo 我的編號
@@ -37,6 +41,22 @@ public class UserInfoWaitPost {
 	public boolean isSame(CVSOrBARCODEPaymentInfoURLObj obj) {
 		return obj.getMerchantTradeNo().equals(MerchantTradeNo+"") && obj.getTradeAmt().equals(TradeAmount+"") &&
 				obj.getPaymentType().equals(PaymentType) && obj.getCustomField1().equals(CustomField1);
+	}
+	
+	/**
+	 * 將資料以map型態輸出
+	 * @return 以map型態輸出
+	 */
+	public Map<String,String> toMap(){
+		Map<String,String> data = new HashMap<String,String>();
+		data.put("MerchantTradeNo", MerchantTradeNo+"");
+		data.put("userName", UserName);
+		data.put("TradeAmount", TradeAmount+"");
+		data.put("ItemName", ItemName);
+		data.put("PaymentType", PaymentType);
+		data.put("CustomField1", CustomField1);
+		data.put("count", count+"");
+		return data;
 	}
 	
 	/**
@@ -87,4 +107,19 @@ public class UserInfoWaitPost {
 		return CustomField1;
 	}
 	
+	/**
+	 * 取得計數
+	 * @return 取得計數
+	 */
+	public int getCount() {
+		return count;
+	}
+	
+	/**
+	 * 設定計數
+	 * @param count 計數值
+	 */
+	public void setCount(int count) {
+		this.count = count;
+	}
 }
