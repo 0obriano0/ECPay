@@ -35,9 +35,10 @@ public class MySQLRannable implements Runnable{
             
             int count = entry.getValue().getCount();
             
-			if(entry.getValue().getCount() <= 1)
+			if(entry.getValue().getCount() <= 1) {
+				ECPay.plugin.getLogger().info("超時刪除 id： " + entry.getValue().getMerchantTradeNo());
 				iterator.remove();
-			else
+			}else
 				entry.getValue().setCount(count-1);
         }
 		

@@ -15,11 +15,11 @@
         <id>spigot-repo</id>
         <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
     </repository>
-    <repository>
+    <!--  <repository>
         <id>minecraft-repo</id>
         <url>https://repo.mcstats.org/content/repositories/releases/</url>
-    </repository>
-     <repository>
+    </repository>-->
+    <repository>
         <id>mojang</id>
         <name>Mojang's Repository</name>
         <url>https://libraries.minecraft.net/</url>

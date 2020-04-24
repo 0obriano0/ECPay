@@ -53,7 +53,7 @@ items:
         x: 1
         y: 2
         ItemStack: BOOK
-        ItemName: §等待資訊§f
+        ItemName: §2等待資訊§f
         Lores:
         - "&f查看等待創建的資料"
         - "&f數量 : %wait%"

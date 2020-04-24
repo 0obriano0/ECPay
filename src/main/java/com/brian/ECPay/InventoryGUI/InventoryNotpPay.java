@@ -41,7 +41,12 @@ public class InventoryNotpPay extends InventoryTools implements InventoryProvide
 	@Override
 	public void init(Player player, InventoryContents contents) {
 		// TODO Auto-generated method stub
-		List<Map<String,String>> selectdata = DataBase.mysql.executeQuery_listMap("SELECT * FROM `payinfo` WHERE UserName='0obriano0' AND PaySuccess = '0'");
+		
+		String SQL_cmd = "SELECT * FROM `payinfo` WHERE";
+		if(!playername.equals("*")) SQL_cmd += " UserName='" + playername + "' AND";
+		SQL_cmd += " PaySuccess = '0' ORDER BY `payinfo`.`MerchantTradeNo` DESC";
+		
+		List<Map<String,String>> selectdata = DataBase.mysql.executeQuery_listMap(SQL_cmd);
 		
 		Pagination pagination = contents.pagination();
     	
@@ -89,6 +94,7 @@ public class InventoryNotpPay extends InventoryTools implements InventoryProvide
 		List<String> ItemLores = new ArrayList<String>();
 		
 		ItemLores.add("§f---訂單資訊---");
+		if(playername.equals("*")) ItemLores.add("玩家:" + payinfo.get("UserName"));
 		ItemLores.add("§f訂單編號:" + payinfo.get("MerchantTradeNo"));
 		ItemLores.add("§f訂單編號(第三方):" + payinfo.get("TradeNo"));
 		ItemLores.add("§f說明:" + payinfo.get("CustomField1"));

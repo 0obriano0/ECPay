@@ -8,9 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
-import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import org.bukkit.entity.Player;
 
@@ -19,7 +19,10 @@ import com.brian.library.MySQL;
 
 public class MySQLBase extends MySQL{
 	
-	public Queue<UserInfo> pushData = new LinkedList<UserInfo>();
+	//public Queue<UserInfo> pushData = new LinkedList<UserInfo>(); 
+	//https://stackoverflow.com/questions/17705658/nosuchelementexception-even-after-check
+	//https://www.twle.cn/c/yufei/javatm/javatm-basic-blockingqueue.html
+	public BlockingQueue<UserInfo> pushData = new LinkedBlockingDeque<UserInfo>();
 	
 	public Map<Long,UserInfoWaitPost> UserInfoWaitPost = new HashMap<Long,UserInfoWaitPost>();
 	
@@ -95,6 +98,8 @@ public class MySQLBase extends MySQL{
 		return MerchantTradeNo;
 	}
 	
+	private final String defaultnum = "0000001";
+	
 	/**
 	 * 確保序號不重複
 	 * @param checkdata 要檢查的資料
@@ -104,7 +109,7 @@ public class MySQLBase extends MySQL{
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		String time = df.format(now);
-		Long TradeNo = Long.valueOf(time.substring(2,time.length()) + "00001");
+		Long TradeNo = Long.valueOf(time.substring(2,time.length()) + defaultnum);
 		return checkdata >= TradeNo ? checkdata+1 : TradeNo;
 	}
 	
@@ -121,7 +126,7 @@ public class MySQLBase extends MySQL{
 				Timestamp now = new Timestamp(System.currentTimeMillis());
 				String time = df.format(now);
 				ECPay.plugin.getLogger().info("time = " + time);
-				NewMerchantTradeNo = Long.valueOf(time.substring(2,time.length()) + "00001");
+				NewMerchantTradeNo = Long.valueOf(time.substring(2,time.length()) + defaultnum);
 			}else
 				NewMerchantTradeNo = checkTradeNo(Selectdata);
 		}
@@ -145,12 +150,20 @@ public class MySQLBase extends MySQL{
 	 * @return 有沒有成功
 	 */
 	public boolean pushQueue() {
-		UserInfo data = pushData.poll();
-		boolean success = this.Insert("payinfo", data.getMap());
-		if(success) {
-			Player player = ECPay.server.getPlayer(data.getUserName());
-			player.sendMessage("資料成功創建 請打開系統查看");
-		}
+		boolean success = false;
+		//try {
+			UserInfo data = pushData.poll();
+			success = this.Insert("payinfo", data.getMap());
+			if(success && ECPay.server.matchPlayer(data.getUserName()).size() == 1) {
+				Player player = ECPay.server.getPlayer(data.getUserName());
+				player.sendMessage("資料成功創建 請打開系統查看");
+			}
+		//}catch(Exception e) {
+		//	ECPay.plugin.getLogger().info("data create fail before pushData size = " + pushData.size());
+		//	pushData.remove();
+		//	ECPay.plugin.getLogger().info("data create fail after pushData size = " + pushData.size());
+		//	return success;
+		//}
 		return success;
 	}
 }
