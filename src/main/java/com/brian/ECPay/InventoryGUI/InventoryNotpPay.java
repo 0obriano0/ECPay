@@ -1,6 +1,10 @@
 package com.brian.ECPay.InventoryGUI;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -82,8 +86,29 @@ public class InventoryNotpPay extends InventoryTools implements InventoryProvide
 	 * @return 將整理好的物品回傳
 	 */
 	public ItemStack getResultItemFormMysql(Map<String,String> payinfo) {
+		
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createTime = payinfo.get("ExpireDate");
+        Date registerTime;
+        boolean isTimeout = false;
+		try {
+			registerTime = sdf1.parse(createTime);
+			isTimeout = currentTime.getTime() >= registerTime.getTime();   
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+		
 		// 產生物品用
-		ItemStack ResultItem = new ItemStack(Material.PAPER);
+		ItemStack ResultItem = new ItemStack(Material.AIR);
+		
+		if(isTimeout && payinfo.get("PaySuccess").equals("0"))
+			new ItemStack(Material.GUNPOWDER);
+		else
+			new ItemStack(Material.PAPER);
+		
 	    ItemMeta newItemMeta;
 		
 		newItemMeta = ResultItem.getItemMeta();
@@ -105,8 +130,12 @@ public class InventoryNotpPay extends InventoryTools implements InventoryProvide
 		ItemLores.add("§f繳費截止時間:" + payinfo.get("ExpireDate"));
 		if(payinfo.get("PaySuccess").equals("1"))
 			ItemLores.add("§f繳費狀態: §a已繳費");
-		else
+		else {
 			ItemLores.add("§f繳費狀態: §c未繳費");
+			if(isTimeout)
+				ItemLores.add("§c以超時無法繳費");
+		}
+		
 		newItemMeta.setLore(ItemLores);
 		
 		// 寫入資料
