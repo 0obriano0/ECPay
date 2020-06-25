@@ -74,7 +74,11 @@ public class MySQL {
 			this.conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		}catch(SQLException se){
 			//Handle errors for JDBC
-			se.printStackTrace();
+			if(se.getClass().getSimpleName().equals("CommunicationsException")) {
+				conn = null;
+				log("Connecting fail");
+			}else
+				se.printStackTrace();
 			return false;
 		}catch(Exception e){
 			//Handle errors for Class.forName
@@ -281,6 +285,15 @@ public class MySQL {
 			}
 		}
 		return success;
+	}
+	
+	/**
+	 * 檢查是否有連接資料庫
+	 * @return true or false
+	 */
+	public boolean isopen() {
+		if(conn==null) return false;
+		return true;
 	}
 	
 	/**

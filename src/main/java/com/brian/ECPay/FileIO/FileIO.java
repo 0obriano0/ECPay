@@ -10,11 +10,17 @@ import com.brian.ECPay.ECPay;
 public class FileIO implements IFileIO{
 	
 	private final transient String FileName;
+	private transient String URL = null;
 	
 	protected FileConfiguration data = null;
 	
 	public FileIO(String FileName){
 		this.FileName = FileName;
+	}
+	
+	public FileIO(String URL,String FileName){
+		this.FileName = FileName;
+		this.URL = URL;
 	}
 	
 	@Override
@@ -34,14 +40,24 @@ public class FileIO implements IFileIO{
 	}
 	
 	protected void readFile(){
-		File File_load = new File(ECPay.plugin.getDataFolder(), FileName);
-        if (!File_load.exists()) ECPay.plugin.saveResource(FileName, true);
+		File File_load = null;
+		String full_url = FileName;
+		
+		if(URL.equals(null))
+			File_load = new File(ECPay.plugin.getDataFolder(), FileName);
+		else {
+			File_load = new File("./" + ECPay.plugin.getDataFolder().toString() + "/" + URL + "/" + FileName);
+			full_url = URL + "\\" + FileName;
+		}
+		
+        if (!File_load.exists()) ECPay.plugin.saveResource(full_url, true);
         data = YamlConfiguration.loadConfiguration(File_load);
 	}
 	
 	@Override
 	public boolean reloadFile() {
-		return false;
+		readFile();
+		return true;
 	}
 	
 }
