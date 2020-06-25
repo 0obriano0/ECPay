@@ -36,7 +36,7 @@ public class DataBase {
 	/**
 	 * 插件目錄 插件附屬檔案的存放路徑
 	 */
-	public static String pluginMainDir = "./plugins/MobDrop/";
+	public static String pluginMainDir = "./plugins/ECpay/";
 	
 	/**
 	 * 指令列表
