@@ -86,7 +86,7 @@ public class InventoryNotpPay extends InventoryTools implements InventoryProvide
 	 * @return 將整理好的物品回傳
 	 */
 	public ItemStack getResultItemFormMysql(Map<String,String> payinfo) {
-		
+		System.out.println("payinfo data size = " + payinfo.size());
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String createTime = payinfo.get("ExpireDate");

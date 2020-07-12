@@ -68,7 +68,7 @@ public class MySQLBase extends MySQL{
 		
 		try{
 			//Execute a query
-			log("getlast MerchantTradeNo");
+			//log("getlast MerchantTradeNo");
 			stmt = conn.createStatement();
 			
 			String sql = "use " + db;
@@ -81,7 +81,7 @@ public class MySQLBase extends MySQL{
 				MerchantTradeNo  = rs.getLong("MerchantTradeNo");
 		    }
 			rs.close();
-			log("command run successfully...");
+			//log("command run successfully...");
 		}catch(SQLException se){
 			//Handle errors for JDBC
 			se.printStackTrace();

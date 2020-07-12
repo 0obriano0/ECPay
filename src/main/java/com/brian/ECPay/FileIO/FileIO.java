@@ -43,7 +43,7 @@ public class FileIO implements IFileIO{
 		File File_load = null;
 		String full_url = FileName;
 		
-		if(URL.equals(null))
+		if(URL == null)
 			File_load = new File(ECPay.plugin.getDataFolder(), FileName);
 		else {
 			File_load = new File("./" + ECPay.plugin.getDataFolder().toString() + "/" + URL + "/" + FileName);
